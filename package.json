@@ -1,0 +1,19 @@
+{
+  "name": "listadeviaje",
+  "version": "1.0.0",
+  "description": "Application to make a check list when you have to travel",
+  "author": "Jaime Martín Martín",
+  "main": "index.js",
+  "homepage": "https://github.com/jaimemartinmartin15/ListaDeViaje#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jaimemartinmartin15/ListaDeViaje.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jaimemartinmartin15/ListaDeViaje/issues"
+  },
+  "keywords": [
+    "checklist",
+    "viaje"
+  ]
+}
