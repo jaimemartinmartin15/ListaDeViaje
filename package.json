@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "Application to make a check list when you have to travel",
   "author": "Jaime Martín Martín",
-  "main": "index.js",
+  "scripts": {
+    "start": "parcel src/index.html --open",
+    "build": "parcel build src/index.html"
+  },
   "homepage": "https://github.com/jaimemartinmartin15/ListaDeViaje#readme",
   "repository": {
     "type": "git",
@@ -15,5 +18,8 @@
   "keywords": [
     "checklist",
     "viaje"
-  ]
+  ],
+  "devDependencies": {
+    "parcel": "^2.12.0"
+  }
 }
