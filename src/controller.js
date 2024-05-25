@@ -8,6 +8,8 @@ const TEMPLATES = {
 const ELEMENTS = {
   ITEM_GROUPS_CONTAINER: document.querySelector("#items-group-container"),
   LIST_NAME: document.querySelector("#list-name"),
+  CLEAN_CHECKS_BUTTON: document.querySelector(".clean-checks-button"),
+  NEW_ITEM_GROUP_BUTTON: document.querySelector(".new-item-group-button"),
 };
 
 const LOCAL_STORAGE_KEYS = {
@@ -75,3 +77,47 @@ function addNewItem(itemGroup, itemsContainer) {
   itemsContainer.append(newItemTemplateClone);
   input.focus();
 }
+
+//#region bottom controls listeners
+
+ELEMENTS.CLEAN_CHECKS_BUTTON.addEventListener("click", cleanCheckboxes);
+function cleanCheckboxes() {
+  // clean view
+  document
+    .querySelectorAll('input[type="checkbox"]')
+    .forEach((checkboxEl) => (checkboxEl.checked = false));
+
+  // clean model
+  TRAVEL_LIST.itemGroups.forEach((itemGroup) =>
+    itemGroup.items.forEach((item) => (item.checked = false))
+  );
+
+  // TODO ask confirmation
+}
+
+ELEMENTS.NEW_ITEM_GROUP_BUTTON.addEventListener("click", addNewItemGroup);
+function addNewItemGroup() {
+  const newItemGroupModel = {
+    title: "",
+    items: [],
+  };
+
+  const itemGroupTemplateClone = TEMPLATES.ITEM_GROUP.content.cloneNode(true);
+
+  itemGroupTemplateClone
+    .querySelector(".items-group-header__arrow")
+    .addEventListener("click", collapseSection);
+
+  const itemsContainer = itemGroupTemplateClone.querySelector(".items-container");
+
+  // add at least a new empty item
+  addNewItem(newItemGroupModel, itemsContainer);
+
+  itemGroupTemplateClone
+    .querySelector(".add-item-button")
+    .addEventListener("click", () => addNewItem(newItemGroupModel, itemsContainer));
+
+  ELEMENTS.ITEM_GROUPS_CONTAINER.append(itemGroupTemplateClone);
+}
+
+//#endregion bottom controls listeners
