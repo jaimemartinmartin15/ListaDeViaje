@@ -28,6 +28,9 @@ function loadListInView(list) {
     const itemGroupTemplateClone = TEMPLATES.ITEM_GROUP.content.cloneNode(true);
 
     itemGroupTemplateClone.querySelector(".items-group-header__name").value = itemGroup.title;
+    itemGroupTemplateClone
+      .querySelector(".items-group-header__arrow")
+      .addEventListener("click", collapseSection);
 
     const itemsContainer = itemGroupTemplateClone.querySelector(".items-container");
 
@@ -43,6 +46,21 @@ function loadListInView(list) {
 
     ELEMENTS.ITEM_GROUPS_CONTAINER.append(itemGroupTemplateClone);
   });
+}
+
+function collapseSection(event) {
+  const svg = event.target.closest("svg");
+  const collapsible = svg.parentNode.parentNode.querySelector(".collapsible");
+
+  if (svg.style.transform === "") {
+    // hide group of items
+    svg.style.transform = "rotate(0deg)";
+    collapsible.style.height = 0;
+  } else {
+    // show group of items
+    svg.style.transform = "";
+    collapsible.style.height = "auto";
+  }
 }
 
 loadListInView(lists[0]);

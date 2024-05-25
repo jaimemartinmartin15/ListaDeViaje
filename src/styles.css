@@ -38,7 +38,12 @@ body {
 }
 
 .items-group-header__arrow {
+  transform: rotate(180deg);
   padding: 5px;
+}
+
+.collapsible {
+  overflow: hidden;
 }
 
 .items-container {
