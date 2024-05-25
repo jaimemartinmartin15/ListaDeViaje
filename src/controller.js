@@ -121,3 +121,42 @@ function addNewItemGroup() {
 }
 
 //#endregion bottom controls listeners
+
+//#region delete items group or item
+
+let elementToDelete = null;
+let initialXCoord = 0;
+
+document.addEventListener("pointerdown", (event) => {
+  elementToDelete = event.target.closest("li.item") ?? event.target.closest("section.items-group");
+  if (elementToDelete !== null) {
+    initialXCoord = event.clientX;
+    elementToDelete.style.position = "relative";
+  }
+});
+
+document.addEventListener("pointermove", (event) => {
+  const distance = event.clientX - initialXCoord;
+  const minThreshold = 10;
+  const maxThreshold = 80;
+  if (
+    elementToDelete !== null &&
+    Math.abs(distance) > minThreshold &&
+    Math.abs(distance) < maxThreshold
+  ) {
+    const translation = distance - (distance > 0 ? minThreshold : -minThreshold);
+    elementToDelete.style.transform = `translateX(${translation}px)`;
+  }
+});
+
+document.addEventListener("pointerup", (event) => {
+  const distance = event.clientX - initialXCoord;
+  const threshold = 40;
+  if (elementToDelete !== null && Math.abs(distance) < threshold) {
+    elementToDelete.style.transform = `translateX(0)`;
+  } else if (elementToDelete !== null) {
+    elementToDelete.style.transform = `translateX(${distance > 0 ? "80px" : "-80px"})`;
+  }
+});
+
+//#endregion delete items group or item
