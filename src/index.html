@@ -45,35 +45,101 @@
 
   <div id="items-group-container">
     <template id="items-group-template">
-      <section class="items-group">
-        <h2 class="items-group-header">
-          <input type="text" placeholder="Nombre de la sección" class="items-group-header__name">
+      <div class="items-group-wrapper">
+        <div class="background">
+          <span>
+            <svg width="30" height="30" viewBox="0 0 100 100" stroke="white" fill="white" stroke-width="1">
+              <!-- holder -->
+              <rect x="35" y="5" rx="5" ry="5" width="30" height="13" fill="inherit"></rect>
+              <rect x="39" y="9" rx="5" ry="5" width="22" height="5" fill="white"></rect>
+              <line x1="5" y1="17.5" x2="95" y2="17.5" stroke-width="4" stroke="inherit" stroke-linecap="round" />
 
-          <svg class="items-group-header__arrow" width="15" viewBox="-10 -10 350 350">
-            <path stroke-width="20" stroke="black"
-              d="M326 79c-6-5-16-5-22 0L165 219 26 79a15 15 0 0 0-22 22l150 150a15 15 0 0 0 22 0l150-150c5-6 5-16 0-22z" />
-          </svg>
-        </h2>
+              <!-- body -->
+              <rect x="20" y="18" rx="5" ry="5" width="60" height="70" fill="inherit"></rect>
+              <line x1="32.5" y1="30" x2="32.5" y2="80" stroke-width="6" stroke="#ff5c5c" stroke-linecap="round" />
+              <line x1="50" y1="30" x2="50" y2="80" stroke-width="6" stroke="#ff5c5c" stroke-linecap="round" />
+              <line x1="67.5" y1="30" x2="67.5" y2="80" stroke-width="6" stroke="#ff5c5c" stroke-linecap="round" />
+            </svg>
+          </span>
+          <span>
+            <svg width="30" height="30" viewBox="0 0 100 100" stroke="white" fill="white" stroke-width="1">
+              <!-- holder -->
+              <rect x="35" y="5" rx="5" ry="5" width="30" height="13" fill="inherit"></rect>
+              <rect x="39" y="9" rx="5" ry="5" width="22" height="5" fill="white"></rect>
+              <line x1="5" y1="17.5" x2="95" y2="17.5" stroke-width="4" stroke="inherit" stroke-linecap="round" />
 
-        <div class="collapsible">
-          <ul class="items-container"></ul>
-
-          <button class="add-item-button">Añadir ítem</button>
+              <!-- body -->
+              <rect x="20" y="18" rx="5" ry="5" width="60" height="70" fill="inherit"></rect>
+              <line x1="32.5" y1="30" x2="32.5" y2="80" stroke-width="6" stroke="#ff5c5c" stroke-linecap="round" />
+              <line x1="50" y1="30" x2="50" y2="80" stroke-width="6" stroke="#ff5c5c" stroke-linecap="round" />
+              <line x1="67.5" y1="30" x2="67.5" y2="80" stroke-width="6" stroke="#ff5c5c" stroke-linecap="round" />
+            </svg>
+          </span>
         </div>
-      </section>
+
+        <section class="items-group">
+          <h2 class="items-group-header">
+            <input type="text" placeholder="Nombre de la sección" class="items-group-header__name">
+
+            <svg class="items-group-header__arrow" width="15" viewBox="-10 -10 350 350">
+              <path stroke-width="20" stroke="black"
+                d="M326 79c-6-5-16-5-22 0L165 219 26 79a15 15 0 0 0-22 22l150 150a15 15 0 0 0 22 0l150-150c5-6 5-16 0-22z" />
+            </svg>
+          </h2>
+
+          <div class="collapsible">
+            <ul class="items-container"></ul>
+
+            <button class="add-item-button">Añadir ítem</button>
+          </div>
+        </section>
+      </div>
     </template>
 
     <template id="item-template">
-      <li class="item">
-        <label class="item__checkbox">
-          <input type="checkbox">
+      <li class="item-wrapper">
+        <div class="background">
+          <span>
+            <svg width="25" height="25" viewBox="0 0 100 100" stroke="white" fill="white" stroke-width="1">
+              <!-- holder -->
+              <rect x="35" y="5" rx="5" ry="5" width="30" height="13" fill="inherit"></rect>
+              <rect x="39" y="9" rx="5" ry="5" width="22" height="5" fill="white"></rect>
+              <line x1="5" y1="17.5" x2="95" y2="17.5" stroke-width="4" stroke="inherit" stroke-linecap="round" />
 
-          <svg viewBox="0 0 33 33">
-            <path d="M6,16L13,23L27,10"></path>
-          </svg>
-        </label>
+              <!-- body -->
+              <rect x="20" y="18" rx="5" ry="5" width="60" height="70" fill="inherit"></rect>
+              <line x1="32.5" y1="30" x2="32.5" y2="80" stroke-width="6" stroke="#ff5c5c" stroke-linecap="round" />
+              <line x1="50" y1="30" x2="50" y2="80" stroke-width="6" stroke="#ff5c5c" stroke-linecap="round" />
+              <line x1="67.5" y1="30" x2="67.5" y2="80" stroke-width="6" stroke="#ff5c5c" stroke-linecap="round" />
+            </svg>
+          </span>
+          <span>
+            <svg width="25" height="25" viewBox="0 0 100 100" stroke="white" fill="white" stroke-width="1">
+              <!-- holder -->
+              <rect x="35" y="5" rx="5" ry="5" width="30" height="13" fill="inherit"></rect>
+              <rect x="39" y="9" rx="5" ry="5" width="22" height="5" fill="white"></rect>
+              <line x1="5" y1="17.5" x2="95" y2="17.5" stroke-width="4" stroke="inherit" stroke-linecap="round" />
 
-        <input type="text" class="item__name">
+              <!-- body -->
+              <rect x="20" y="18" rx="5" ry="5" width="60" height="70" fill="inherit"></rect>
+              <line x1="32.5" y1="30" x2="32.5" y2="80" stroke-width="6" stroke="#ff5c5c" stroke-linecap="round" />
+              <line x1="50" y1="30" x2="50" y2="80" stroke-width="6" stroke="#ff5c5c" stroke-linecap="round" />
+              <line x1="67.5" y1="30" x2="67.5" y2="80" stroke-width="6" stroke="#ff5c5c" stroke-linecap="round" />
+            </svg>
+          </span>
+        </div>
+
+        <div class="item">
+          <label class="item__checkbox">
+            <input type="checkbox">
+
+            <svg viewBox="0 0 33 33">
+              <path d="M6,16L13,23L27,10"></path>
+            </svg>
+          </label>
+
+          <input type="text" class="item__name">
+        </div>
       </li>
     </template>
   </div>

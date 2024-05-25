@@ -128,7 +128,8 @@ let elementToDelete = null;
 let initialXCoord = 0;
 
 document.addEventListener("pointerdown", (event) => {
-  elementToDelete = event.target.closest("li.item") ?? event.target.closest("section.items-group");
+  // TODO delete items-group only if click was origin in the header
+  elementToDelete = event.target.closest("div.item") ?? event.target.closest("section.items-group");
   if (elementToDelete !== null) {
     initialXCoord = event.clientX;
     elementToDelete.style.position = "relative";

@@ -6,15 +6,38 @@
 body {
   margin: 0;
   font-family: system-ui;
-  touch-action: none;
+  overflow-x: hidden;
 }
 
 #list-name {
   text-align: center;
 }
 
+#items-group-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.items-group-wrapper {
+  position: relative;
+}
+
+.items-group-wrapper .background {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 25px;
+  pointer-events: none;
+  background-color: #ff5c5c;
+}
+
 .items-group {
   text-align: center;
+  background-color: white;
+  position: relative;
 }
 
 .items-group-header {
@@ -23,10 +46,11 @@ body {
   align-items: center;
   background-color: #f4f4f4;
   padding: 4px 16px;
-  margin: 10px 0;
+  margin: 0 0;
   border-top: 2px solid var(--color-item-group-header);
   border-bottom: 2px solid var(--color-item-group-header);
   font-size: 1.1rem;
+  touch-action: none;
 }
 
 .items-group-header__name {
@@ -49,13 +73,19 @@ body {
 
 .items-container {
   list-style: none;
-  padding-left: 16px;
+  padding: 0;
+}
+
+.item-wrapper {
+  position: relative;
 }
 
 .item {
   display: flex;
   align-items: center;
   padding: 10px;
+  background-color: white;
+  position: relative;
 }
 
 .item__checkbox {
@@ -64,6 +94,8 @@ body {
   border: 2px solid black;
   border-radius: 5px;
   margin-right: 10px;
+  margin-left: 16px;
+  touch-action: none;
 }
 
 .item__checkbox input,
@@ -87,6 +119,7 @@ body {
   outline: none;
   flex-grow: 1;
   text-overflow: ellipsis;
+  touch-action: none;
 }
 
 .add-item-button {
