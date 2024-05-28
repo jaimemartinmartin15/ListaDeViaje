@@ -53,6 +53,11 @@ const TRAVEL_LIST = loadTravelListFromLocalStorage() ?? DEFAULT_TRAVEL_LIST;
 
 function loadListInView(list) {
   list.forEach((section) => addSectionToView(section));
+
+  // set fixed height of collapsible container to allow animate it form the beginning
+  document
+    .querySelectorAll(SELECTORS.SECTION_COLLAPSIBLE_CONTAINER)
+    .forEach((collapsibleEl) => (collapsibleEl.style.height = `${collapsibleEl.scrollHeight}px`));
 }
 
 loadListInView(TRAVEL_LIST);
@@ -115,10 +120,12 @@ function collapseSection(event) {
     // hide group of items
     svg.style.transform = "rotate(0deg)";
     collapsible.style.height = 0;
+    collapsible.style.opacity = 0;
   } else {
     // show group of items
     svg.style.transform = "";
-    collapsible.style.height = "auto";
+    collapsible.style.height = `${collapsible.scrollHeight}px`;
+    collapsible.style.opacity = 1;
   }
 }
 

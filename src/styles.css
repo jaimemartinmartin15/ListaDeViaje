@@ -2,6 +2,7 @@
   --color-section-header: #f4f4f4;
   --color-box-shadow: #dadada;
   --color-background-button: #d3ffd3;
+  --transition-time: 0.3s;
 }
 
 body {
@@ -72,10 +73,13 @@ input.section__header__name {
 svg.section__header__arrow {
   transform: rotate(180deg);
   padding: 5px;
+  transition: transform var(--transition-time);
 }
 
 .section__collapsible {
   overflow: hidden;
+  opacity: 1;
+  transition: height var(--transition-time), opacity var(--transition-time);
 }
 
 .section__collapsible .items-container {
