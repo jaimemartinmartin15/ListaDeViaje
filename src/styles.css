@@ -33,7 +33,7 @@ li.section .background {
   align-items: center;
   padding: 0px 25px;
   pointer-events: none;
-  /* background-color like in js */
+  /* background-color like in js and html */
   background-color: #ff5c5c;
 }
 
@@ -91,7 +91,7 @@ li.item .background {
   align-items: center;
   padding: 0px 25px;
   pointer-events: none;
-  /* background-color like in js */
+  /* background-color like in js and html */
   background-color: #ff5c5c;
 }
 

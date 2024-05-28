@@ -9,6 +9,7 @@ const SELECTORS = {
   SECTIONS_LIST: "ul#sections-list",
   CLEAN_CHECKS_BUTTON: "button#clean-checks",
   NEW_SECTION_BUTTON: "button#new-section",
+  TRASH_CAN_ICON: "#trash-can-svg",
 
   // section template elements
   SECTION: "li.section",
@@ -191,6 +192,8 @@ function addNewSectionToView() {
 
 const MIN_THRESHOLD_SCROLLING = 15;
 const THRESHOLD_TO_DELETE = screen.width / 2;
+const BACKGROUND_COLOR = "#ff5c5c"; // backgroundColor like in css and html
+const BACKGROUND_COLOR_DELETE = "#c20000";
 let elementToScrollOnDelete = null;
 let initialXCoord = 0;
 
@@ -205,23 +208,35 @@ document.addEventListener("pointerdown", (event) => {
 
 document.addEventListener("pointermove", (event) => {
   const distance = event.clientX - initialXCoord;
-  if (elementToScrollOnDelete !== null && Math.abs(distance) > MIN_THRESHOLD_SCROLLING) {
-    const translation =
-      distance - (distance > 0 ? MIN_THRESHOLD_SCROLLING : -MIN_THRESHOLD_SCROLLING);
-    elementToScrollOnDelete.style.transform = `translateX(${translation}px)`;
-
-    let backgroundEl;
-    if (elementToScrollOnDelete.matches(SELECTORS.ITEM_FOREGROUND)) {
-      backgroundEl = elementToScrollOnDelete.parentNode.querySelector(SELECTORS.ITEM_BACKGROUND);
-    } else {
-      backgroundEl = elementToScrollOnDelete.parentNode.querySelector(SELECTORS.SECTION_BACKGROUND);
-    }
-    if (Math.abs(distance) >= THRESHOLD_TO_DELETE) {
-      backgroundEl.style.backgroundColor = "#c20000";
-    } else {
-      backgroundEl.style.backgroundColor = "#ff5c5c"; // backgroundColor like in css
-    }
+  if (elementToScrollOnDelete === null || Math.abs(distance) <= MIN_THRESHOLD_SCROLLING) {
+    return;
   }
+
+  const translation =
+    distance - (distance > 0 ? MIN_THRESHOLD_SCROLLING : -MIN_THRESHOLD_SCROLLING);
+  elementToScrollOnDelete.style.transform = `translateX(${translation}px)`;
+
+  let backgroundEl;
+  if (elementToScrollOnDelete.matches(SELECTORS.ITEM_FOREGROUND)) {
+    backgroundEl = elementToScrollOnDelete.parentNode.querySelector(SELECTORS.ITEM_BACKGROUND);
+  } else {
+    backgroundEl = elementToScrollOnDelete.parentNode.querySelector(SELECTORS.SECTION_BACKGROUND);
+  }
+  let color;
+  if (Math.abs(distance) >= THRESHOLD_TO_DELETE) {
+    color = BACKGROUND_COLOR_DELETE;
+  } else {
+    color = BACKGROUND_COLOR;
+  }
+
+  // change color of background and svg
+  backgroundEl.style.backgroundColor = color;
+  document
+    .querySelectorAll(`${SELECTORS.TRASH_CAN_ICON} [fill^="#"]`)
+    .forEach((el) => el.setAttribute("fill", color));
+  document
+    .querySelectorAll(`${SELECTORS.TRASH_CAN_ICON} [stroke^="#"]`)
+    .forEach((el) => el.setAttribute("stroke", color));
 });
 
 document.addEventListener("pointerup", (event) => {
