@@ -15,7 +15,7 @@ const SELECTORS = {
   SECTION_FOREGROUND: "li.section .foreground",
   SECTION_NAME: 'input[type="text"].section__header__name',
   SECTION_COLLAPSIBLE_ARROW: ".section__header__arrow",
-  SECTION_COLLAPSIBLE_CONTAINER: "section__collapsible",
+  SECTION_COLLAPSIBLE_CONTAINER: ".section__collapsible",
   SECTION_ITEMS_CONTAINER: ".items-container",
   SECTION_ADD_ITEM_BUTTON: "button.add-item",
 
@@ -185,47 +185,53 @@ function addNewSectionToView() {
 
 //#endregion bottom controls listeners
 
-//#region delete items group or item
+//#region delete section or item
 
+const MIN_THRESHOLD_SCROLLING = 15;
 let elementToScrollOnDelete = null;
 let initialXCoord = 0;
 
 document.addEventListener("pointerdown", (event) => {
-  // TODO delete items-group only if click was origin in the header
   elementToScrollOnDelete =
     event.target.closest(SELECTORS.ITEM_FOREGROUND) ??
     event.target.closest(SELECTORS.SECTION_FOREGROUND);
   if (elementToScrollOnDelete !== null) {
     initialXCoord = event.clientX;
-    elementToScrollOnDelete.style.position = "relative";
   }
 });
 
 document.addEventListener("pointermove", (event) => {
   const distance = event.clientX - initialXCoord;
-  const minThreshold = 10;
-  const maxThreshold = 80;
-  if (
-    elementToScrollOnDelete !== null &&
-    Math.abs(distance) > minThreshold &&
-    Math.abs(distance) < maxThreshold
-  ) {
-    const translation = distance - (distance > 0 ? minThreshold : -minThreshold);
+  if (elementToScrollOnDelete !== null && Math.abs(distance) > MIN_THRESHOLD_SCROLLING) {
+    const translation =
+      distance - (distance > 0 ? MIN_THRESHOLD_SCROLLING : -MIN_THRESHOLD_SCROLLING);
     elementToScrollOnDelete.style.transform = `translateX(${translation}px)`;
   }
 });
 
 document.addEventListener("pointerup", (event) => {
   const distance = event.clientX - initialXCoord;
-  const threshold = 40;
-  if (elementToScrollOnDelete !== null && Math.abs(distance) < threshold) {
+  const THRESHOLD_TO_DELETE = screen.width / 2;
+
+  if (elementToScrollOnDelete !== null && Math.abs(distance) < THRESHOLD_TO_DELETE) {
     elementToScrollOnDelete.style.transform = `translateX(0)`;
   } else if (elementToScrollOnDelete !== null) {
-    elementToScrollOnDelete.style.transform = `translateX(${distance > 0 ? "80px" : "-80px"})`;
+    const sectionParent = elementToScrollOnDelete.closest(SELECTORS.SECTION);
+
+    if (elementToScrollOnDelete.matches(SELECTORS.ITEM_FOREGROUND)) {
+      elementToScrollOnDelete.closest(SELECTORS.ITEM).remove();
+    } else {
+      elementToScrollOnDelete.closest(SELECTORS.SECTION).remove();
+    }
+    if (sectionParent.querySelectorAll(SELECTORS.ITEM).length === 0) {
+      sectionParent.remove();
+    }
+
+    saveStateToLocalStorageFromView();
   }
 });
 
-//#endregion delete items group or item
+//#endregion delete section or item
 
 //#region save state
 
