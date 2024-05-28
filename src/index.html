@@ -41,113 +41,89 @@
 </head>
 
 <body>
+  <!-- trash icon svg definition -->
+  <svg style="display: none">
+    <defs>
+      <symbol id="trash-can-svg" viewbox="0 0 100 110">
+        <!-- lid -->
+        <rect x="35" y="5" rx="5" ry="5" width="30" height="13" fill="inherit"></rect>
+        <rect x="39" y="9" rx="5" ry="5" width="22" height="5" fill="white"></rect>
+        <line x1="5" y1="17.5" x2="95" y2="17.5" stroke-width="4" stroke="inherit" stroke-linecap="round" />
+
+        <!-- body -->
+        <rect x="20" y="18" rx="5" ry="5" width="60" height="70" fill="inherit"></rect>
+        <line x1="32.5" y1="30" x2="32.5" y2="80" stroke-width="6" stroke="#ff5c5c" stroke-linecap="round" />
+        <line x1="50" y1="30" x2="50" y2="80" stroke-width="6" stroke="#ff5c5c" stroke-linecap="round" />
+        <line x1="67.5" y1="30" x2="67.5" y2="80" stroke-width="6" stroke="#ff5c5c" stroke-linecap="round" />
+      </symbol>
+    </defs>
+  </svg>
+
   <h1 id="list-name">Lista de viaje</h1>
 
-  <div id="items-group-container">
-    <template id="items-group-template">
-      <div class="items-group-wrapper">
+  <ul id="sections-list">
+    <template id="section-template">
+      <li class="section">
         <div class="background">
-          <span>
-            <svg width="30" height="30" viewBox="0 0 100 100" stroke="white" fill="white" stroke-width="1">
-              <!-- holder -->
-              <rect x="35" y="5" rx="5" ry="5" width="30" height="13" fill="inherit"></rect>
-              <rect x="39" y="9" rx="5" ry="5" width="22" height="5" fill="white"></rect>
-              <line x1="5" y1="17.5" x2="95" y2="17.5" stroke-width="4" stroke="inherit" stroke-linecap="round" />
+          <svg width="30" height="30" stroke="white" fill="white" stroke-width="1">
+            <use href="#trash-can-svg" />
+          </svg>
 
-              <!-- body -->
-              <rect x="20" y="18" rx="5" ry="5" width="60" height="70" fill="inherit"></rect>
-              <line x1="32.5" y1="30" x2="32.5" y2="80" stroke-width="6" stroke="#ff5c5c" stroke-linecap="round" />
-              <line x1="50" y1="30" x2="50" y2="80" stroke-width="6" stroke="#ff5c5c" stroke-linecap="round" />
-              <line x1="67.5" y1="30" x2="67.5" y2="80" stroke-width="6" stroke="#ff5c5c" stroke-linecap="round" />
-            </svg>
-          </span>
-          <span>
-            <svg width="30" height="30" viewBox="0 0 100 100" stroke="white" fill="white" stroke-width="1">
-              <!-- holder -->
-              <rect x="35" y="5" rx="5" ry="5" width="30" height="13" fill="inherit"></rect>
-              <rect x="39" y="9" rx="5" ry="5" width="22" height="5" fill="white"></rect>
-              <line x1="5" y1="17.5" x2="95" y2="17.5" stroke-width="4" stroke="inherit" stroke-linecap="round" />
-
-              <!-- body -->
-              <rect x="20" y="18" rx="5" ry="5" width="60" height="70" fill="inherit"></rect>
-              <line x1="32.5" y1="30" x2="32.5" y2="80" stroke-width="6" stroke="#ff5c5c" stroke-linecap="round" />
-              <line x1="50" y1="30" x2="50" y2="80" stroke-width="6" stroke="#ff5c5c" stroke-linecap="round" />
-              <line x1="67.5" y1="30" x2="67.5" y2="80" stroke-width="6" stroke="#ff5c5c" stroke-linecap="round" />
-            </svg>
-          </span>
+          <svg width="30" height="30" stroke="white" fill="white" stroke-width="1">
+            <use href="#trash-can-svg" />
+          </svg>
         </div>
 
-        <section class="items-group">
-          <h2 class="items-group-header">
-            <input type="text" placeholder="Nombre de la sección" class="items-group-header__name">
+        <section class="foreground">
+          <h2 class="section__header">
+            <input type="text" placeholder="Nombre de la sección" class="section__header__name">
 
-            <svg class="items-group-header__arrow" width="15" viewBox="-10 -10 350 350">
+            <svg class="section__header__arrow" width="15" viewBox="-10 -10 350 350">
               <path stroke-width="20" stroke="black"
                 d="M326 79c-6-5-16-5-22 0L165 219 26 79a15 15 0 0 0-22 22l150 150a15 15 0 0 0 22 0l150-150c5-6 5-16 0-22z" />
             </svg>
           </h2>
 
-          <div class="collapsible">
+          <div class="section__collapsible">
             <ul class="items-container"></ul>
 
-            <button class="add-item-button">Añadir ítem</button>
+            <button class="add-item">Añadir ítem</button>
           </div>
         </section>
-      </div>
+      </li>
     </template>
 
     <template id="item-template">
-      <li class="item-wrapper">
+      <li class="item">
         <div class="background">
-          <span>
-            <svg width="25" height="25" viewBox="0 0 100 100" stroke="white" fill="white" stroke-width="1">
-              <!-- holder -->
-              <rect x="35" y="5" rx="5" ry="5" width="30" height="13" fill="inherit"></rect>
-              <rect x="39" y="9" rx="5" ry="5" width="22" height="5" fill="white"></rect>
-              <line x1="5" y1="17.5" x2="95" y2="17.5" stroke-width="4" stroke="inherit" stroke-linecap="round" />
+          <svg width="25" height="25" stroke="white" fill="white" stroke-width="1">
+            <use href="#trash-can-svg" />
+          </svg>
 
-              <!-- body -->
-              <rect x="20" y="18" rx="5" ry="5" width="60" height="70" fill="inherit"></rect>
-              <line x1="32.5" y1="30" x2="32.5" y2="80" stroke-width="6" stroke="#ff5c5c" stroke-linecap="round" />
-              <line x1="50" y1="30" x2="50" y2="80" stroke-width="6" stroke="#ff5c5c" stroke-linecap="round" />
-              <line x1="67.5" y1="30" x2="67.5" y2="80" stroke-width="6" stroke="#ff5c5c" stroke-linecap="round" />
-            </svg>
-          </span>
-          <span>
-            <svg width="25" height="25" viewBox="0 0 100 100" stroke="white" fill="white" stroke-width="1">
-              <!-- holder -->
-              <rect x="35" y="5" rx="5" ry="5" width="30" height="13" fill="inherit"></rect>
-              <rect x="39" y="9" rx="5" ry="5" width="22" height="5" fill="white"></rect>
-              <line x1="5" y1="17.5" x2="95" y2="17.5" stroke-width="4" stroke="inherit" stroke-linecap="round" />
-
-              <!-- body -->
-              <rect x="20" y="18" rx="5" ry="5" width="60" height="70" fill="inherit"></rect>
-              <line x1="32.5" y1="30" x2="32.5" y2="80" stroke-width="6" stroke="#ff5c5c" stroke-linecap="round" />
-              <line x1="50" y1="30" x2="50" y2="80" stroke-width="6" stroke="#ff5c5c" stroke-linecap="round" />
-              <line x1="67.5" y1="30" x2="67.5" y2="80" stroke-width="6" stroke="#ff5c5c" stroke-linecap="round" />
-            </svg>
-          </span>
+          <svg width="25" height="25" stroke="white" fill="white" stroke-width="1">
+            <use href="#trash-can-svg" />
+          </svg>
         </div>
 
-        <div class="item">
-          <label class="item__checkbox">
-            <input type="checkbox">
+        <div class="foreground">
+          <label class="item__checkbox-wrapper">
+            <input type="checkbox" class="item__checkbox">
 
             <svg viewBox="0 0 33 33">
               <path d="M6,16L13,23L27,10"></path>
             </svg>
           </label>
 
-          <input type="text" class="item__name">
+          <input type="text" placeholder="Nuevo ítem" class="item__name">
         </div>
       </li>
     </template>
-  </div>
+  </ul>
 
-  <div class="bottom-controls">
-    <button class="clean-checks-button">Limpiar checks</button>
+  <div id="bottom-controls">
+    <button id="clean-checks">Limpiar checks</button>
 
-    <button class="new-item-group-button">Nueva sección</button>
+    <button id="new-section">Nueva sección</button>
   </div>
 </body>
 

@@ -13,17 +13,19 @@ body {
   text-align: center;
 }
 
-#items-group-container {
+ul#sections-list {
+  list-style: none;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  padding: 0;
 }
 
-.items-group-wrapper {
+li.section {
   position: relative;
 }
 
-.items-group-wrapper .background {
+li.section .background {
   position: absolute;
   inset: 0;
   display: flex;
@@ -34,13 +36,13 @@ body {
   background-color: #ff5c5c;
 }
 
-.items-group {
+li.section .foreground {
   text-align: center;
   background-color: white;
   position: relative;
 }
 
-.items-group-header {
+h2.section__header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -53,7 +55,7 @@ body {
   touch-action: none;
 }
 
-.items-group-header__name {
+input.section__header__name {
   flex-grow: 1;
   text-overflow: ellipsis;
   border: none;
@@ -62,25 +64,36 @@ body {
   font-weight: bold;
 }
 
-.items-group-header__arrow {
+svg.section__header__arrow {
   transform: rotate(180deg);
   padding: 5px;
 }
 
-.collapsible {
+.section__collapsible {
   overflow: hidden;
 }
 
-.items-container {
+.section__collapsible .items-container {
   list-style: none;
   padding: 0;
 }
 
-.item-wrapper {
+li.item {
   position: relative;
 }
 
-.item {
+li.item .background {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 25px;
+  pointer-events: none;
+  background-color: #ff5c5c;
+}
+
+li.item .foreground {
   display: flex;
   align-items: center;
   padding: 10px;
@@ -88,7 +101,7 @@ body {
   position: relative;
 }
 
-.item__checkbox {
+.item__checkbox-wrapper {
   width: 20px;
   height: 20px;
   border: 2px solid black;
@@ -98,23 +111,25 @@ body {
   touch-action: none;
 }
 
-.item__checkbox input,
-.item__checkbox svg {
+.item__checkbox-wrapper input[type="checkbox"],
+.item__checkbox-wrapper svg {
   display: none;
 }
 
-.item__checkbox:has(input:checked) {
+.item__checkbox-wrapper:has(input[type="checkbox"]:checked) {
+  /* change label background */
   background-color: #3ddf3d;
 }
 
-.item__checkbox input:checked~svg {
+.item__checkbox-wrapper input[type="checkbox"]:checked~svg {
+  /* show check svg */
   display: block;
   stroke: white;
   stroke-width: 4;
   fill: none;
 }
 
-.item__name {
+input[type="text"].item__name {
   border: none;
   outline: none;
   flex-grow: 1;
@@ -122,7 +137,7 @@ body {
   touch-action: none;
 }
 
-.add-item-button {
+button.add-item {
   align-self: center;
   text-align: center;
   border: 2px solid var(--color-add-item-button);
@@ -132,7 +147,7 @@ body {
   font-size: 0.9rem;
 }
 
-.bottom-controls {
+#bottom-controls {
   position: sticky;
   bottom: 0;
   height: 50px;
