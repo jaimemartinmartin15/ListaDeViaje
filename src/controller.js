@@ -13,6 +13,7 @@ const SELECTORS = {
   // section template elements
   SECTION: "li.section",
   SECTION_FOREGROUND: "li.section .foreground",
+  SECTION_BACKGROUND: "li.section .background",
   SECTION_NAME: 'input[type="text"].section__header__name',
   SECTION_COLLAPSIBLE_ARROW: ".section__header__arrow",
   SECTION_COLLAPSIBLE_CONTAINER: ".section__collapsible",
@@ -22,6 +23,7 @@ const SELECTORS = {
   // item template elements
   ITEM: "li.item",
   ITEM_FOREGROUND: "li.item .foreground",
+  ITEM_BACKGROUND: "li.item .background",
   ITEM_CHECKBOX_INPUT: 'input[type="checkbox"].item__checkbox',
   ITEM_NAME_INPUT: 'input[type="text"].item__name',
 };
@@ -188,6 +190,7 @@ function addNewSectionToView() {
 //#region delete section or item
 
 const MIN_THRESHOLD_SCROLLING = 15;
+const THRESHOLD_TO_DELETE = screen.width / 2;
 let elementToScrollOnDelete = null;
 let initialXCoord = 0;
 
@@ -206,13 +209,23 @@ document.addEventListener("pointermove", (event) => {
     const translation =
       distance - (distance > 0 ? MIN_THRESHOLD_SCROLLING : -MIN_THRESHOLD_SCROLLING);
     elementToScrollOnDelete.style.transform = `translateX(${translation}px)`;
+
+    let backgroundEl;
+    if (elementToScrollOnDelete.matches(SELECTORS.ITEM_FOREGROUND)) {
+      backgroundEl = elementToScrollOnDelete.parentNode.querySelector(SELECTORS.ITEM_BACKGROUND);
+    } else {
+      backgroundEl = elementToScrollOnDelete.parentNode.querySelector(SELECTORS.SECTION_BACKGROUND);
+    }
+    if (Math.abs(distance) >= THRESHOLD_TO_DELETE) {
+      backgroundEl.style.backgroundColor = "#c20000";
+    } else {
+      backgroundEl.style.backgroundColor = "#ff5c5c"; // backgroundColor like in css
+    }
   }
 });
 
 document.addEventListener("pointerup", (event) => {
   const distance = event.clientX - initialXCoord;
-  const THRESHOLD_TO_DELETE = screen.width / 2;
-
   if (elementToScrollOnDelete !== null && Math.abs(distance) < THRESHOLD_TO_DELETE) {
     elementToScrollOnDelete.style.transform = `translateX(0)`;
   } else if (elementToScrollOnDelete !== null) {
