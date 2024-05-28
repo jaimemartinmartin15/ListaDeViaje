@@ -165,9 +165,8 @@ function addNewSectionToView() {
   const sectionTemplateClone = TEMPLATES.SECTION.content.cloneNode(true);
 
   // listener section name
-  sectionTemplateClone
-    .querySelector(SELECTORS.SECTION_NAME)
-    .addEventListener("input", saveStateToLocalStorageFromView);
+  const sectionNameEl = sectionTemplateClone.querySelector(SELECTORS.SECTION_NAME);
+  sectionNameEl.addEventListener("input", saveStateToLocalStorageFromView);
 
   // listener to expand and collapse the section
   sectionTemplateClone
@@ -184,6 +183,7 @@ function addNewSectionToView() {
     .addEventListener("click", () => addItemToSectionView(itemsContainer));
 
   ELEMENTS.SECTIONS_LIST.append(sectionTemplateClone);
+  sectionNameEl.focus();
 }
 
 //#endregion bottom controls listeners
@@ -197,7 +197,7 @@ const BACKGROUND_COLOR_DELETE = "#c20000";
 let elementToScrollOnDelete = null;
 let initialXCoord = 0;
 
-document.addEventListener("pointerdown", (event) => {
+document.body.addEventListener("pointerdown", (event) => {
   elementToScrollOnDelete =
     event.target.closest(SELECTORS.ITEM_FOREGROUND) ??
     event.target.closest(SELECTORS.SECTION_FOREGROUND);
@@ -206,7 +206,7 @@ document.addEventListener("pointerdown", (event) => {
   }
 });
 
-document.addEventListener("pointermove", (event) => {
+document.body.addEventListener("pointermove", (event) => {
   const distance = event.clientX - initialXCoord;
   if (elementToScrollOnDelete === null || Math.abs(distance) <= MIN_THRESHOLD_SCROLLING) {
     return;
@@ -239,7 +239,7 @@ document.addEventListener("pointermove", (event) => {
     .forEach((el) => el.setAttribute("stroke", color));
 });
 
-document.addEventListener("pointerup", (event) => {
+document.body.addEventListener("pointerup", (event) => {
   const distance = event.clientX - initialXCoord;
   if (elementToScrollOnDelete !== null && Math.abs(distance) < THRESHOLD_TO_DELETE) {
     elementToScrollOnDelete.style.transform = `translateX(0)`;

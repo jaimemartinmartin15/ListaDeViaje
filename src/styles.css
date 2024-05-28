@@ -32,7 +32,6 @@ li.section .background {
   justify-content: space-between;
   align-items: center;
   padding: 0px 25px;
-  pointer-events: none;
   /* background-color like in js and html */
   background-color: #ff5c5c;
 }
@@ -53,7 +52,6 @@ h2.section__header {
   border-top: 2px solid var(--color-item-group-header);
   border-bottom: 2px solid var(--color-item-group-header);
   font-size: 1.1rem;
-  touch-action: none;
 }
 
 input.section__header__name {
@@ -90,7 +88,6 @@ li.item .background {
   justify-content: space-between;
   align-items: center;
   padding: 0px 25px;
-  pointer-events: none;
   /* background-color like in js and html */
   background-color: #ff5c5c;
 }
@@ -110,7 +107,6 @@ li.item .foreground {
   border-radius: 5px;
   margin-right: 10px;
   margin-left: 16px;
-  touch-action: none;
 }
 
 .item__checkbox-wrapper input[type="checkbox"],
@@ -136,7 +132,6 @@ input[type="text"].item__name {
   outline: none;
   flex-grow: 1;
   text-overflow: ellipsis;
-  touch-action: none;
 }
 
 button.add-item {
