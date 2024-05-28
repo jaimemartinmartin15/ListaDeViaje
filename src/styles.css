@@ -8,6 +8,9 @@ body {
   font-family: system-ui;
   overflow-x: hidden;
   touch-action: pan-y;
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
 }
 
 #list-name {
@@ -20,6 +23,7 @@ ul#sections-list {
   flex-direction: column;
   gap: 10px;
   padding: 0;
+  flex-grow: 1;
 }
 
 li.section {
