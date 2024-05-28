@@ -1,6 +1,7 @@
 :root {
-  --color-item-group-header: #dadada;
-  --color-add-item-button: #b1b1b1;
+  --color-section-header: #f4f4f4;
+  --color-box-shadow: #dadada;
+  --color-background-button: #d3ffd3;
 }
 
 body {
@@ -51,11 +52,11 @@ h2.section__header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #f4f4f4;
+  background-color: var(--color-section-header);
   padding: 4px 16px;
   margin: 0 0;
-  border-top: 2px solid var(--color-item-group-header);
-  border-bottom: 2px solid var(--color-item-group-header);
+  border-top: 2px solid color-mix(in srgb, var(--color-section-header) 70%, black);
+  border-bottom: 2px solid color-mix(in srgb, var(--color-section-header) 70%, black);
   font-size: 1.1rem;
 }
 
@@ -79,7 +80,7 @@ svg.section__header__arrow {
 
 .section__collapsible .items-container {
   list-style: none;
-  padding: 0;
+  padding: 10px 0;
 }
 
 li.item {
@@ -137,27 +138,40 @@ input[type="text"].item__name {
   outline: none;
   flex-grow: 1;
   text-overflow: ellipsis;
+  font-size: 0.9rem;
 }
 
 button.add-item {
   align-self: center;
   text-align: center;
-  border: 2px solid var(--color-add-item-button);
-  background-color: var(--color-add-item-button);
+  border: 2px solid var(--color-background-button);
+  background-color: var(--color-background-button);
+  box-shadow: 3px 3px 5px var(--color-box-shadow);
   border-radius: 15px;
   padding: 5px 20px;
-  font-size: 0.9rem;
+  margin-bottom: 10px;
 }
 
 #bottom-controls {
   position: sticky;
   bottom: 0;
-  height: 50px;
+  height: 60px;
   background-color: white;
   border-top: 2px solid black;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
   gap: 10px;
-  margin-top: 10px;
+}
+
+#bottom-controls button {
+  border: none;
+  background-color: var(--color-background-button);
+  border-radius: 5px;
+  padding: 5px 10px;
+  box-shadow: 3px 3px 5px var(--color-box-shadow);
+}
+
+#bottom-controls button:active {
+  transform: translate(1px, 2px);
 }
