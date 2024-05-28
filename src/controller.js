@@ -9,7 +9,7 @@ const SELECTORS = {
   SECTIONS_LIST: "ul#sections-list",
   CLEAN_CHECKS_BUTTON: "button#clean-checks",
   NEW_SECTION_BUTTON: "button#new-section",
-  TRASH_CAN_ICON: "#trash-can-svg",
+  TRASH_CAN_ICON: ".trash-can",
 
   // section template elements
   SECTION: "li.section",
