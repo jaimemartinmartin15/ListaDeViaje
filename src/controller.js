@@ -256,11 +256,16 @@ document.body.addEventListener("pointerup", (event) => {
     const itemHeight = elementToScrollOnDelete.scrollHeight;
     elementToScrollOnDelete.closest(SELECTORS.ITEM).remove();
     collapsibleContainerEl.style.height = `${collapsibleContainerEl.scrollHeight - itemHeight}px`;
-  } else {
-    elementToScrollOnDelete.closest(SELECTORS.SECTION).remove();
   }
-  if (sectionParent.querySelectorAll(SELECTORS.ITEM).length === 0) {
-    sectionParent.remove();
+
+  if (
+    !elementToScrollOnDelete.matches(SELECTORS.ITEM_FOREGROUND) ||
+    sectionParent.querySelectorAll(SELECTORS.ITEM).length === 0
+  ) {
+    // animate the deletion of the section
+    sectionParent.style.height = `${sectionParent.scrollHeight}px`;
+    setTimeout(() => (sectionParent.style.height = "0px"));
+    setTimeout(() => sectionParent.remove(), 300); // like --transition-time in css
   }
 
   saveStateToLocalStorageFromView();

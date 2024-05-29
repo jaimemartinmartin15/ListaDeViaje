@@ -30,6 +30,8 @@ ul#sections-list {
 
 li.section {
   position: relative;
+  overflow: hidden;
+  transition: height var(--transition-time);
 }
 
 li.section .background {
