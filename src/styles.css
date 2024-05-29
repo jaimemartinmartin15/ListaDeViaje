@@ -170,7 +170,7 @@ button.add-item {
   gap: 10px;
 }
 
-#bottom-controls button {
+#bottom-controls>button {
   border: none;
   background-color: var(--color-background-button);
   border-radius: 5px;
@@ -178,6 +178,38 @@ button.add-item {
   box-shadow: 3px 3px 5px var(--color-box-shadow);
 }
 
-#bottom-controls button:active {
+#bottom-controls>button:active {
   transform: translate(1px, 2px);
+}
+
+#overlay-clean-checks {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100dvw;
+  height: 100dvh;
+  display: none;
+}
+
+#overlay-clean-checks button {
+  background-color: white;
+  border: 2px solid black;
+  border-radius: 5px;
+  color: red;
+  font-weight: bold;
+  padding: 10px 15px;
+  position: absolute;
+}
+
+#overlay-clean-checks button::before {
+  content: "";
+  width: 15px;
+  height: 15px;
+  position: absolute;
+  bottom: -15.5px;
+  left: 50%;
+  transform: rotate(45deg) translateX(-50%);
+  background-color: white;
+  border-bottom: 2px solid black;
+  border-right: 2px solid black;
 }

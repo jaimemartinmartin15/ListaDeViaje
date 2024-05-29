@@ -8,6 +8,8 @@ const SELECTORS = {
   // unique ids
   SECTIONS_LIST: "ul#sections-list",
   CLEAN_CHECKS_BUTTON: "button#clean-checks",
+  CONFIRM_CLEAN_CHECKS_BUTTON: "button#confirm-clean-checks",
+  OVERLAY_CLEAN_CHECKS: "#overlay-clean-checks",
   NEW_SECTION_BUTTON: "button#new-section",
   TRASH_CAN_ICON: ".trash-can",
 
@@ -37,6 +39,8 @@ const TEMPLATES = {
 const ELEMENTS = {
   SECTIONS_LIST: document.querySelector(SELECTORS.SECTIONS_LIST),
   CLEAN_CHECKS_BUTTON: document.querySelector(SELECTORS.CLEAN_CHECKS_BUTTON),
+  CONFIRM_CLEAN_CHECKS_BUTTON: document.querySelector(SELECTORS.CONFIRM_CLEAN_CHECKS_BUTTON),
+  OVERLAY_CLEAN_CHECKS: document.querySelector(SELECTORS.OVERLAY_CLEAN_CHECKS),
   NEW_SECTION_BUTTON: document.querySelector(SELECTORS.NEW_SECTION_BUTTON),
 };
 
@@ -166,10 +170,26 @@ function addItemToSectionView(itemsListContainer, model) {
 
 //#region bottom controls listeners
 
-ELEMENTS.CLEAN_CHECKS_BUTTON.addEventListener("click", cleanCheckboxes);
-function cleanCheckboxes() {
-  // TODO ask confirmation before cleaning
+ELEMENTS.CLEAN_CHECKS_BUTTON.addEventListener("click", showConfirmationCleanCheckboxes);
+function showConfirmationCleanCheckboxes() {
+  ELEMENTS.OVERLAY_CLEAN_CHECKS.style.display = "block";
+  // align confirm button to appear above this button
+  const position = this.getBoundingClientRect();
+  console.log(position);
+  ELEMENTS.CONFIRM_CLEAN_CHECKS_BUTTON.style.left = `${
+    position.left + position.width / 2 - ELEMENTS.CONFIRM_CLEAN_CHECKS_BUTTON.scrollWidth / 2
+  }px`;
+  ELEMENTS.CONFIRM_CLEAN_CHECKS_BUTTON.style.top = `${
+    position.top - ELEMENTS.CONFIRM_CLEAN_CHECKS_BUTTON.scrollHeight - 4
+  }px`;
+}
 
+ELEMENTS.OVERLAY_CLEAN_CHECKS.addEventListener("click", function () {
+  this.style.display = "none";
+});
+
+ELEMENTS.CONFIRM_CLEAN_CHECKS_BUTTON.addEventListener("click", cleanCheckboxes);
+function cleanCheckboxes() {
   document
     .querySelectorAll(SELECTORS.ITEM_CHECKBOX_INPUT)
     .forEach((checkboxEl) => (checkboxEl.checked = false));
