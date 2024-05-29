@@ -116,6 +116,10 @@ function addSectionToView(model) {
   // adapt the height because is set fixed to allow animation
   const collapsibleContainerEl = itemsContainer.closest(SELECTORS.SECTION_COLLAPSIBLE_CONTAINER);
   collapsibleContainerEl.style.height = `${collapsibleContainerEl.scrollHeight}px`;
+
+  if (model === undefined) {
+    sectionNameInputEl.focus();
+  }
 }
 
 function collapseSection(event) {
