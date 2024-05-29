@@ -108,6 +108,10 @@ function addSectionToView(model) {
     .addEventListener("click", () => addItemToSectionView(itemsContainer));
 
   ELEMENTS.SECTIONS_LIST.append(sectionTemplateClone);
+
+  // adapt the height because is set fixed to allow animation
+  const collapsibleContainerEl = itemsContainer.closest(SELECTORS.SECTION_COLLAPSIBLE_CONTAINER);
+  collapsibleContainerEl.style.height = `${collapsibleContainerEl.scrollHeight}px`;
 }
 
 function collapseSection(event) {
@@ -152,6 +156,12 @@ function addItemToSectionView(itemsListContainer, model) {
     // the user is adding a new item pressing the add item button
     inputEl.focus();
   }
+
+  // adapt the height because is set fixed to allow animation
+  const collapsibleContainerEl = itemsListContainer.closest(
+    SELECTORS.SECTION_COLLAPSIBLE_CONTAINER
+  );
+  collapsibleContainerEl.style.height = `${collapsibleContainerEl.scrollHeight}px`;
 }
 
 //#region bottom controls listeners
@@ -167,31 +177,7 @@ function cleanCheckboxes() {
   saveStateToLocalStorageFromView();
 }
 
-ELEMENTS.NEW_SECTION_BUTTON.addEventListener("click", addNewSectionToView);
-function addNewSectionToView() {
-  const sectionTemplateClone = TEMPLATES.SECTION.content.cloneNode(true);
-
-  // listener section name
-  const sectionNameEl = sectionTemplateClone.querySelector(SELECTORS.SECTION_NAME);
-  sectionNameEl.addEventListener("input", saveStateToLocalStorageFromView);
-
-  // listener to expand and collapse the section
-  sectionTemplateClone
-    .querySelector(SELECTORS.SECTION_COLLAPSIBLE_ARROW)
-    .addEventListener("click", collapseSection);
-
-  const itemsContainer = sectionTemplateClone.querySelector(SELECTORS.SECTION_ITEMS_CONTAINER);
-
-  // add at least a new empty item
-  addItemToSectionView(itemsContainer);
-
-  sectionTemplateClone
-    .querySelector(SELECTORS.SECTION_ADD_ITEM_BUTTON)
-    .addEventListener("click", () => addItemToSectionView(itemsContainer));
-
-  ELEMENTS.SECTIONS_LIST.append(sectionTemplateClone);
-  sectionNameEl.focus();
-}
+ELEMENTS.NEW_SECTION_BUTTON.addEventListener("click", () => addSectionToView());
 
 //#endregion bottom controls listeners
 
@@ -210,6 +196,8 @@ document.body.addEventListener("pointerdown", (event) => {
     event.target.closest(SELECTORS.SECTION_FOREGROUND);
   if (elementToScrollOnDelete !== null) {
     initialXCoord = event.clientX;
+    // delete transition to apply transform with same speed than pointer move
+    elementToScrollOnDelete.style.transition = "";
   }
 });
 
@@ -248,22 +236,34 @@ document.body.addEventListener("pointermove", (event) => {
 
 document.body.addEventListener("pointerup", (event) => {
   const distance = event.clientX - initialXCoord;
-  if (elementToScrollOnDelete !== null && Math.abs(distance) < THRESHOLD_TO_DELETE) {
+
+  if (elementToScrollOnDelete === null) return;
+
+  elementToScrollOnDelete.style.transition = "transform 0.3s";
+
+  if (Math.abs(distance) < THRESHOLD_TO_DELETE) {
     elementToScrollOnDelete.style.transform = `translateX(0)`;
-  } else if (elementToScrollOnDelete !== null) {
-    const sectionParent = elementToScrollOnDelete.closest(SELECTORS.SECTION);
-
-    if (elementToScrollOnDelete.matches(SELECTORS.ITEM_FOREGROUND)) {
-      elementToScrollOnDelete.closest(SELECTORS.ITEM).remove();
-    } else {
-      elementToScrollOnDelete.closest(SELECTORS.SECTION).remove();
-    }
-    if (sectionParent.querySelectorAll(SELECTORS.ITEM).length === 0) {
-      sectionParent.remove();
-    }
-
-    saveStateToLocalStorageFromView();
+    return;
   }
+
+  const sectionParent = elementToScrollOnDelete.closest(SELECTORS.SECTION);
+
+  if (elementToScrollOnDelete.matches(SELECTORS.ITEM_FOREGROUND)) {
+    // remove the item and adapt the height of the collapsible section, that is fixed to allow animation
+    const collapsibleContainerEl = elementToScrollOnDelete.closest(
+      SELECTORS.SECTION_COLLAPSIBLE_CONTAINER
+    );
+    const itemHeight = elementToScrollOnDelete.scrollHeight;
+    elementToScrollOnDelete.closest(SELECTORS.ITEM).remove();
+    collapsibleContainerEl.style.height = `${collapsibleContainerEl.scrollHeight - itemHeight}px`;
+  } else {
+    elementToScrollOnDelete.closest(SELECTORS.SECTION).remove();
+  }
+  if (sectionParent.querySelectorAll(SELECTORS.ITEM).length === 0) {
+    sectionParent.remove();
+  }
+
+  saveStateToLocalStorageFromView();
 });
 
 //#endregion delete section or item
