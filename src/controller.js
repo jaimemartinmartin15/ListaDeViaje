@@ -256,6 +256,7 @@ document.body.addEventListener("pointerup", (event) => {
     const itemHeight = elementToScrollOnDelete.scrollHeight;
     elementToScrollOnDelete.closest(SELECTORS.ITEM).remove();
     collapsibleContainerEl.style.height = `${collapsibleContainerEl.scrollHeight - itemHeight}px`;
+    saveStateToLocalStorageFromView();
   }
 
   if (
@@ -265,10 +266,11 @@ document.body.addEventListener("pointerup", (event) => {
     // animate the deletion of the section
     sectionParent.style.height = `${sectionParent.scrollHeight}px`;
     setTimeout(() => (sectionParent.style.height = "0px"));
-    setTimeout(() => sectionParent.remove(), 300); // like --transition-time in css
+    setTimeout(() => {
+      sectionParent.remove();
+      saveStateToLocalStorageFromView();
+    }, 300); // like --transition-time in css
   }
-
-  saveStateToLocalStorageFromView();
 });
 
 //#endregion delete section or item
