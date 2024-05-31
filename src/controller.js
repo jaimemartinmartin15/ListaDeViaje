@@ -194,10 +194,10 @@ function showConfirmationCleanCheckboxes() {
   const position = this.getBoundingClientRect();
 
   ELEMENTS.CONFIRM_CLEAN_CHECKS_BUTTON.style.left = `${
-    position.left + position.width / 2 - ELEMENTS.CONFIRM_CLEAN_CHECKS_BUTTON.scrollWidth / 2
+    position.left + position.width / 2 - ELEMENTS.CONFIRM_CLEAN_CHECKS_BUTTON.scrollWidth / 2 - 5
   }px`;
   ELEMENTS.CONFIRM_CLEAN_CHECKS_BUTTON.style.top = `${
-    position.top - ELEMENTS.CONFIRM_CLEAN_CHECKS_BUTTON.scrollHeight - 4
+    position.top - ELEMENTS.CONFIRM_CLEAN_CHECKS_BUTTON.scrollHeight + 2
   }px`;
 }
 
