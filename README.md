@@ -4,7 +4,7 @@ Application to make a check list when you have to travel. Do not forget anything
 
 Optimized for mobile viewports. This projects uses HTML, CSS and JavaScript technologies and [Parcel](https://parceljs.org/) tooling.
 
-<!-- TODO pipeline badge -->
+[![Build And Deploy](https://github.com/jaimemartinmartin15/ListaDeViaje/actions/workflows/build-and-publish.yml/badge.svg)](https://github.com/jaimemartinmartin15/ListaDeViaje/actions/workflows/build-and-publish.yml)
 
 ## Development
 
