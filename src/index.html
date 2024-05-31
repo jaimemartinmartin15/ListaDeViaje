@@ -148,13 +148,37 @@
   </ul>
 
   <div id="bottom-controls">
-    <button id="clean-checks">Limpiar checks</button>
+    <button id="clean-checks">
+      <!-- icon: checklist with no checked items -->
+      <svg viewBox="0 0 100 100" width="30" height="30">
+        <rect x="10" y="10" rx="5" ry="5" width="23" height="23" fill="none" stroke="black" stroke-width="3" />
+        <rect x="10" y="40" rx="5" ry="5" width="23" height="23" fill="none" stroke="black" stroke-width="3" />
+        <rect x="10" y="70" rx="5" ry="5" width="23" height="23" fill="none" stroke="black" stroke-width="3" />
+        <line x1="53" y1="22" x2="90" y2="22" stroke-width="4" stroke="black" stroke-linecap="round" />
+        <line x1="53" y1="52" x2="90" y2="52" stroke-width="4" stroke="black" stroke-linecap="round" />
+        <line x1="53" y1="82" x2="90" y2="82" stroke-width="4" stroke="black" stroke-linecap="round" />
+      </svg>
+    </button>
 
     <div id="overlay-clean-checks">
-      <button id="confirm-clean-checks">¡confirmar!</button>
+      <button id="confirm-clean-checks">¡limpiar marcas!</button>
     </div>
 
-    <button id="new-section">Nueva sección</button>
+    <button id="collapse-all-sections">
+      <!-- icon: chevron that represents collapsing sections -->
+      <svg viewBox="0 0 100 100" width="30" height="30">
+        <line x1="10" y1="73" x2="50" y2="33" stroke-width="4" stroke="black" stroke-linecap="round" />
+        <line x1="50" y1="33" x2="90" y2="73" stroke-width="4" stroke="black" stroke-linecap="round" />
+      </svg>
+    </button>
+
+    <button id="new-section">
+      <!-- icon: sum icon -->
+      <svg viewBox="0 0 100 100" width="30" height="30">
+        <line x1="50" y1="10" x2="50" y2="90" stroke-width="4" stroke="black" stroke-linecap="round" />
+        <line x1="10" y1="50" x2="90" y2="50" stroke-width="4" stroke="black" stroke-linecap="round" />
+      </svg>
+    </button>
   </div>
 </body>
 

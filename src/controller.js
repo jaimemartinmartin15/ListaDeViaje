@@ -1,4 +1,3 @@
-import { adaptInputWidthToTextListener } from "./adapt-input-width-to-text-listener.js";
 import { DEFAULT_TRAVEL_LIST } from "./default-travel-list.js";
 
 const SELECTORS = {
@@ -12,6 +11,7 @@ const SELECTORS = {
   CONFIRM_CLEAN_CHECKS_BUTTON: "button#confirm-clean-checks",
   OVERLAY_CLEAN_CHECKS: "#overlay-clean-checks",
   NEW_SECTION_BUTTON: "button#new-section",
+  TOGGLE_ALL_SECTIONS_BUTTON: "button#collapse-all-sections",
   TRASH_CAN_ICON: ".trash-can",
 
   // section template elements
@@ -45,6 +45,7 @@ const ELEMENTS = {
   CONFIRM_CLEAN_CHECKS_BUTTON: document.querySelector(SELECTORS.CONFIRM_CLEAN_CHECKS_BUTTON),
   OVERLAY_CLEAN_CHECKS: document.querySelector(SELECTORS.OVERLAY_CLEAN_CHECKS),
   NEW_SECTION_BUTTON: document.querySelector(SELECTORS.NEW_SECTION_BUTTON),
+  TOGGLE_ALL_SECTIONS_BUTTON: document.querySelector(SELECTORS.TOGGLE_ALL_SECTIONS_BUTTON),
 };
 
 const LOCAL_STORAGE_KEYS = {
@@ -77,7 +78,6 @@ function addSectionToView(model) {
   if (model !== undefined) {
     sectionNameInputEl.value = model.name;
   }
-  sectionNameInputEl.addEventListener("input", adaptInputWidthToTextListener);
   sectionNameInputEl.addEventListener("input", saveStateToLocalStorageFromView);
 
   // collapsible arrow button
@@ -105,9 +105,6 @@ function addSectionToView(model) {
   // adapt the height because is set fixed to allow animation
   const collapsibleContainerEl = itemsContainer.closest(SELECTORS.SECTION_COLLAPSIBLE_CONTAINER);
   collapsibleContainerEl.style.height = `${collapsibleContainerEl.scrollHeight}px`;
-
-  // adapt the width of the section name input element
-  adaptInputWidthToTextListener.call(sectionNameInputEl);
 
   // when adding a new section, set focus on section name input
   if (model === undefined) {
@@ -222,6 +219,27 @@ function cleanCheckboxes() {
 
   saveStateToLocalStorageFromView();
 }
+
+ELEMENTS.TOGGLE_ALL_SECTIONS_BUTTON.addEventListener("click", function () {
+  const svg = this.querySelector("svg");
+  if (svg.style.transform === "") {
+    svg.style.transform = "rotate(180deg)";
+    document.querySelectorAll(SELECTORS.SECTION_COLLAPSIBLE_ARROW).forEach((arrowEl) => {
+      if (arrowEl.style.transform === "") {
+        // collapse expanded sections
+        arrowEl.dispatchEvent(new Event("click"));
+      }
+    });
+  } else {
+    svg.style.transform = "";
+    document.querySelectorAll(SELECTORS.SECTION_COLLAPSIBLE_ARROW).forEach((arrowEl) => {
+      if (arrowEl.style.transform === "rotate(0deg)") {
+        // expand collapsed sections
+        arrowEl.dispatchEvent(new Event("click"));
+      }
+    });
+  }
+});
 
 ELEMENTS.NEW_SECTION_BUTTON.addEventListener("click", () => addSectionToView());
 

@@ -63,6 +63,7 @@ h2.section__header {
 }
 
 input.section__header__name {
+  flex-grow: 1;
   text-overflow: ellipsis;
   border: none;
   background-color: transparent;
@@ -71,8 +72,6 @@ input.section__header__name {
 }
 
 .section__header__progress {
-  flex-grow: 1;
-  text-align: start;
   padding: 0 10px 3px 10px;
   text-wrap: nowrap;
   font-size: 0.8rem;
@@ -181,7 +180,10 @@ button.add-item {
   border: none;
   background-color: var(--color-background-button);
   border-radius: 5px;
-  padding: 5px 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
   box-shadow: 3px 3px 5px var(--color-box-shadow);
 }
 
