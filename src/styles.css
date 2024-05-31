@@ -60,11 +60,9 @@ h2.section__header {
   margin: 0 0;
   border-top: 2px solid color-mix(in srgb, var(--color-section-header) 70%, black);
   border-bottom: 2px solid color-mix(in srgb, var(--color-section-header) 70%, black);
-  font-size: 1.1rem;
 }
 
 input.section__header__name {
-  flex-grow: 1;
   text-overflow: ellipsis;
   border: none;
   background-color: transparent;
@@ -72,7 +70,16 @@ input.section__header__name {
   font-weight: bold;
 }
 
+.section__header__progress {
+  flex-grow: 1;
+  text-align: start;
+  padding: 0 10px 3px 10px;
+  text-wrap: nowrap;
+  font-size: 0.8rem;
+}
+
 svg.section__header__arrow {
+  flex-shrink: 0;
   transform: rotate(180deg);
   padding: 5px;
   transition: transform var(--transition-time);

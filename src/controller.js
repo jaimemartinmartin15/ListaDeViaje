@@ -1,3 +1,4 @@
+import { adaptInputWidthToTextListener } from "./adapt-input-width-to-text-listener.js";
 import { DEFAULT_TRAVEL_LIST } from "./default-travel-list.js";
 
 const SELECTORS = {
@@ -18,6 +19,8 @@ const SELECTORS = {
   SECTION_FOREGROUND: "li.section .foreground",
   SECTION_BACKGROUND: "li.section .background",
   SECTION_NAME: 'input[type="text"].section__header__name',
+  SECTION_COMPLETED_ITEMS_NUMBER: ".section__header__progress__completed-items",
+  SECTION_TOTAL_ITEMS_NUMBER: ".section__header__progress__total-items",
   SECTION_COLLAPSIBLE_ARROW: ".section__header__arrow",
   SECTION_COLLAPSIBLE_CONTAINER: ".section__collapsible",
   SECTION_ITEMS_CONTAINER: ".items-container",
@@ -74,6 +77,7 @@ function addSectionToView(model) {
   if (model !== undefined) {
     sectionNameInputEl.value = model.name;
   }
+  sectionNameInputEl.addEventListener("input", adaptInputWidthToTextListener);
   sectionNameInputEl.addEventListener("input", saveStateToLocalStorageFromView);
 
   // collapsible arrow button
@@ -84,39 +88,28 @@ function addSectionToView(model) {
   // items
   const itemsContainer = sectionTemplateClone.querySelector(SELECTORS.SECTION_ITEMS_CONTAINER);
   if (model !== undefined) {
-    model.items.forEach((item) => {
-      const itemTemplateClone = TEMPLATES.ITEM.content.cloneNode(true);
-
-      // checkbox
-      itemTemplateClone.querySelector(SELECTORS.ITEM_CHECKBOX_INPUT).checked = item.checked;
-      itemTemplateClone
-        .querySelector(SELECTORS.ITEM_CHECKBOX_INPUT)
-        .addEventListener("change", saveStateToLocalStorageFromView);
-
-      // item name
-      itemTemplateClone.querySelector(SELECTORS.ITEM_NAME_INPUT).value = item.name;
-      itemTemplateClone
-        .querySelector(SELECTORS.ITEM_NAME_INPUT)
-        .addEventListener("input", saveStateToLocalStorageFromView);
-
-      itemsContainer.append(itemTemplateClone);
-    });
+    model.items.forEach((item) => addItemToSection(itemsContainer, item));
   } else {
     // add at least an empty item
-    addItemToSectionView(itemsContainer);
+    addItemToSection(itemsContainer);
   }
 
   // listener add new item button
   sectionTemplateClone
     .querySelector(SELECTORS.SECTION_ADD_ITEM_BUTTON)
-    .addEventListener("click", () => addItemToSectionView(itemsContainer));
+    .addEventListener("click", () => addItemToSection(itemsContainer));
 
+  // add the section to the DOM
   ELEMENTS.SECTIONS_LIST.append(sectionTemplateClone);
 
   // adapt the height because is set fixed to allow animation
   const collapsibleContainerEl = itemsContainer.closest(SELECTORS.SECTION_COLLAPSIBLE_CONTAINER);
   collapsibleContainerEl.style.height = `${collapsibleContainerEl.scrollHeight}px`;
 
+  // adapt the width of the section name input element
+  adaptInputWidthToTextListener.call(sectionNameInputEl);
+
+  // when adding a new section, set focus on section name input
   if (model === undefined) {
     sectionNameInputEl.focus();
   }
@@ -141,9 +134,16 @@ function collapseSection(event) {
   }
 }
 
-function addItemToSectionView(itemsListContainer, model) {
-  // * TODO: improvement - add only if last one is not empty!
+function updateProgressOfSectionOnToggleCheck() {
+  // 'this' is the checkbox element
 
+  const sectionEl = this.closest(SELECTORS.SECTION);
+  const completedItemsNumberEl = sectionEl.querySelector(SELECTORS.SECTION_COMPLETED_ITEMS_NUMBER);
+  completedItemsNumberEl.textContent =
+    +completedItemsNumberEl.textContent + (this.checked ? 1 : -1);
+}
+
+function addItemToSection(itemsListContainer, model) {
   const newItemTemplateClone = TEMPLATES.ITEM.content.cloneNode(true);
   const checkboxEl = newItemTemplateClone.querySelector(SELECTORS.ITEM_CHECKBOX_INPUT);
   const inputEl = newItemTemplateClone.querySelector(SELECTORS.ITEM_NAME_INPUT);
@@ -155,13 +155,14 @@ function addItemToSectionView(itemsListContainer, model) {
   }
 
   // add event listeners
+  checkboxEl.addEventListener("change", updateProgressOfSectionOnToggleCheck);
   checkboxEl.addEventListener("change", saveStateToLocalStorageFromView);
   inputEl.addEventListener("input", saveStateToLocalStorageFromView);
 
   itemsListContainer.append(newItemTemplateClone);
 
+  // set the focus on the item when it is adding a new item
   if (model === undefined) {
-    // the user is adding a new item pressing the add item button
     inputEl.focus();
   }
 
@@ -170,6 +171,21 @@ function addItemToSectionView(itemsListContainer, model) {
     SELECTORS.SECTION_COLLAPSIBLE_CONTAINER
   );
   collapsibleContainerEl.style.height = `${collapsibleContainerEl.scrollHeight}px`;
+
+  // if the item is checked, increase the number of completed items
+  if (model !== undefined && model.checked) {
+    const completedItemsNumberEl = itemsListContainer
+      .closest(SELECTORS.SECTION)
+      .querySelector(SELECTORS.SECTION_COMPLETED_ITEMS_NUMBER);
+
+    completedItemsNumberEl.textContent = +completedItemsNumberEl.textContent + 1;
+  }
+
+  // increase the number of total elements in the section header
+  const spanEl = itemsListContainer
+    .closest(SELECTORS.SECTION)
+    .querySelector(SELECTORS.SECTION_TOTAL_ITEMS_NUMBER);
+  spanEl.textContent = +spanEl.textContent + 1;
 }
 
 //#region bottom controls listeners
@@ -179,7 +195,7 @@ function showConfirmationCleanCheckboxes() {
   ELEMENTS.OVERLAY_CLEAN_CHECKS.style.display = "block";
   // align confirm button to appear above this button
   const position = this.getBoundingClientRect();
-  console.log(position);
+
   ELEMENTS.CONFIRM_CLEAN_CHECKS_BUTTON.style.left = `${
     position.left + position.width / 2 - ELEMENTS.CONFIRM_CLEAN_CHECKS_BUTTON.scrollWidth / 2
   }px`;
@@ -194,9 +210,15 @@ ELEMENTS.OVERLAY_CLEAN_CHECKS.addEventListener("click", function () {
 
 ELEMENTS.CONFIRM_CLEAN_CHECKS_BUTTON.addEventListener("click", cleanCheckboxes);
 function cleanCheckboxes() {
+  // uncheck items
   document
     .querySelectorAll(SELECTORS.ITEM_CHECKBOX_INPUT)
     .forEach((checkboxEl) => (checkboxEl.checked = false));
+
+  // reset progress of each section
+  document
+    .querySelectorAll(SELECTORS.SECTION_COMPLETED_ITEMS_NUMBER)
+    .forEach((el) => (el.textContent = "0"));
 
   saveStateToLocalStorageFromView();
 }
@@ -281,6 +303,16 @@ document.body.addEventListener("pointerup", (event) => {
     elementToScrollOnDelete.closest(SELECTORS.ITEM).remove();
     collapsibleContainerEl.style.height = `${collapsibleContainerEl.scrollHeight - itemHeight}px`;
     saveStateToLocalStorageFromView();
+
+    // adapt progress
+    const totalItemsNumberEl = sectionParent.querySelector(SELECTORS.SECTION_TOTAL_ITEMS_NUMBER);
+    totalItemsNumberEl.textContent = +totalItemsNumberEl.textContent - 1;
+    if (elementToScrollOnDelete.querySelector(SELECTORS.ITEM_CHECKBOX_INPUT).checked) {
+      const completedItemsNumberEl = sectionParent.querySelector(
+        SELECTORS.SECTION_COMPLETED_ITEMS_NUMBER
+      );
+      completedItemsNumberEl.textContent = +completedItemsNumberEl.textContent - 1;
+    }
   }
 
   if (
