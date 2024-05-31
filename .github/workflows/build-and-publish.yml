@@ -32,5 +32,5 @@ jobs:
         run: |
           aws --version
           aws s3 sync ./dist \
-                      s3://puntuaciones.jaimeelingeniero.es/lista-de-viaje \
+                      s3://jaimeelingeniero.es/lista-de-viaje \
                       --delete
