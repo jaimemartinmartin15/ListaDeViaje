@@ -1,6 +1,8 @@
 # Lista de viaje
 
-This project contains an application to make a check list when you have to travel.
+Application to make a check list when you have to travel. Do not forget anything at home.
+
+Optimized for mobile viewports. This projects uses HTML, CSS and JavaScript technologies and [Parcel](https://parceljs.org/) tooling.
 
 <!-- TODO pipeline badge -->
 
@@ -17,3 +19,23 @@ Install dependencies:
 ```text
 npm i
 ```
+
+Start the server:
+
+```text
+npm run start
+```
+
+## Build
+
+To build the project run:
+
+```text
+npm run build
+```
+
+Minified files are generated to deploy to the server.
+
+## Deploy
+
+<!-- TODO -->
