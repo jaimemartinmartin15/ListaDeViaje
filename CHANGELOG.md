@@ -4,8 +4,9 @@
 
 First version of the app. Features:
 
-- Add and delete sections.
-- Add and delete items to the sections.
+- Add, edit and delete sections.
+- Add, edit and delete items to the sections.
 - Show progress of a section.
 - Collapse and expand sections.
+- Clean all checks at once.
 - Save state in localStorage.
