@@ -5,7 +5,7 @@
   "author": "Jaime Martín Martín",
   "scripts": {
     "start": "parcel src/index.html --open",
-    "build": "parcel build src/index.html --no-source-maps"
+    "build": "parcel build src/index.html --no-source-maps --public-url /lista-de-viaje/"
   },
   "homepage": "https://github.com/jaimemartinmartin15/ListaDeViaje#readme",
   "repository": {
