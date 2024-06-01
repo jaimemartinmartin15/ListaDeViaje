@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 1.0.1
+
+Fix og:image tags after build by Parcel.
+Updated prettier config.
+
 ## 1.0.0
 
 First version of the app. Features:

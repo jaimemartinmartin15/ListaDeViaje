@@ -1,11 +1,12 @@
 {
   "name": "listadeviaje",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Application to make a check list when you have to travel",
   "author": "Jaime Martín Martín",
   "scripts": {
     "start": "parcel src/index.html --open",
-    "build": "parcel build src/index.html --no-source-maps --public-url /lista-de-viaje/"
+    "build": "parcel build src/index.html --no-source-maps --public-url /lista-de-viaje/",
+    "clean": "rm -rf dist .parcel-cache"
   },
   "homepage": "https://github.com/jaimemartinmartin15/ListaDeViaje#readme",
   "repository": {
