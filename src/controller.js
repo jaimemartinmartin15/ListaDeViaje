@@ -1,35 +1,35 @@
-import { DEFAULT_TRAVEL_LIST } from "./default-travel-list.js";
+import { DEFAULT_TRAVEL_LIST } from './default-travel-list.js';
 
 const SELECTORS = {
   // template ids
-  SECTION_TEMPLATE: "#section-template",
-  ITEM_TEMPLATE: "#item-template",
+  SECTION_TEMPLATE: '#section-template',
+  ITEM_TEMPLATE: '#item-template',
 
   // unique ids
-  SECTIONS_LIST: "ul#sections-list",
-  CLEAN_CHECKS_BUTTON: "button#clean-checks",
-  CONFIRM_CLEAN_CHECKS_BUTTON: "button#confirm-clean-checks",
-  OVERLAY_CLEAN_CHECKS: "#overlay-clean-checks",
-  NEW_SECTION_BUTTON: "button#new-section",
-  TOGGLE_ALL_SECTIONS_BUTTON: "button#collapse-all-sections",
-  TRASH_CAN_ICON: ".trash-can",
+  SECTIONS_LIST: 'ul#sections-list',
+  CLEAN_CHECKS_BUTTON: 'button#clean-checks',
+  CONFIRM_CLEAN_CHECKS_BUTTON: 'button#confirm-clean-checks',
+  OVERLAY_CLEAN_CHECKS: '#overlay-clean-checks',
+  NEW_SECTION_BUTTON: 'button#new-section',
+  TOGGLE_ALL_SECTIONS_BUTTON: 'button#collapse-all-sections',
+  TRASH_CAN_ICON: '.trash-can',
 
   // section template elements
-  SECTION: "li.section",
-  SECTION_FOREGROUND: "li.section .foreground",
-  SECTION_BACKGROUND: "li.section .background",
+  SECTION: 'li.section',
+  SECTION_FOREGROUND: 'li.section .foreground',
+  SECTION_BACKGROUND: 'li.section .background',
   SECTION_NAME: 'input[type="text"].section__header__name',
-  SECTION_COMPLETED_ITEMS_NUMBER: ".section__header__progress__completed-items",
-  SECTION_TOTAL_ITEMS_NUMBER: ".section__header__progress__total-items",
-  SECTION_COLLAPSIBLE_ARROW: ".section__header__arrow",
-  SECTION_COLLAPSIBLE_CONTAINER: ".section__collapsible",
-  SECTION_ITEMS_CONTAINER: ".items-container",
-  SECTION_ADD_ITEM_BUTTON: "button.add-item",
+  SECTION_COMPLETED_ITEMS_NUMBER: '.section__header__progress__completed-items',
+  SECTION_TOTAL_ITEMS_NUMBER: '.section__header__progress__total-items',
+  SECTION_COLLAPSIBLE_ARROW: '.section__header__arrow',
+  SECTION_COLLAPSIBLE_CONTAINER: '.section__collapsible',
+  SECTION_ITEMS_CONTAINER: '.items-container',
+  SECTION_ADD_ITEM_BUTTON: 'button.add-item',
 
   // item template elements
-  ITEM: "li.item",
-  ITEM_FOREGROUND: "li.item .foreground",
-  ITEM_BACKGROUND: "li.item .background",
+  ITEM: 'li.item',
+  ITEM_FOREGROUND: 'li.item .foreground',
+  ITEM_BACKGROUND: 'li.item .background',
   ITEM_CHECKBOX_INPUT: 'input[type="checkbox"].item__checkbox',
   ITEM_NAME_INPUT: 'input[type="text"].item__name',
 };
@@ -49,7 +49,7 @@ const ELEMENTS = {
 };
 
 const LOCAL_STORAGE_KEYS = {
-  TRAVEL_LIST: "travel-list",
+  TRAVEL_LIST: 'travel-list',
 };
 
 function loadTravelListFromLocalStorage() {
@@ -78,12 +78,12 @@ function addSectionToView(model) {
   if (model !== undefined) {
     sectionNameInputEl.value = model.name;
   }
-  sectionNameInputEl.addEventListener("input", saveStateToLocalStorageFromView);
+  sectionNameInputEl.addEventListener('input', saveStateToLocalStorageFromView);
 
   // collapsible arrow button
   sectionTemplateClone
     .querySelector(SELECTORS.SECTION_COLLAPSIBLE_ARROW)
-    .addEventListener("click", collapseSection);
+    .addEventListener('click', collapseSection);
 
   // items
   const itemsContainer = sectionTemplateClone.querySelector(SELECTORS.SECTION_ITEMS_CONTAINER);
@@ -97,7 +97,7 @@ function addSectionToView(model) {
   // listener add new item button
   sectionTemplateClone
     .querySelector(SELECTORS.SECTION_ADD_ITEM_BUTTON)
-    .addEventListener("click", () => addItemToSection(itemsContainer));
+    .addEventListener('click', () => addItemToSection(itemsContainer));
 
   // add the section to the DOM
   ELEMENTS.SECTIONS_LIST.append(sectionTemplateClone);
@@ -113,19 +113,19 @@ function addSectionToView(model) {
 }
 
 function collapseSection(event) {
-  const svg = event.target.closest("svg");
+  const svg = event.target.closest('svg');
   const collapsible = svg.parentNode.parentNode.querySelector(
     SELECTORS.SECTION_COLLAPSIBLE_CONTAINER
   );
 
-  if (svg.style.transform === "") {
+  if (svg.style.transform === '') {
     // hide group of items
-    svg.style.transform = "rotate(0deg)";
+    svg.style.transform = 'rotate(0deg)';
     collapsible.style.height = 0;
     collapsible.style.opacity = 0;
   } else {
     // show group of items
-    svg.style.transform = "";
+    svg.style.transform = '';
     collapsible.style.height = `${collapsible.scrollHeight}px`;
     collapsible.style.opacity = 1;
   }
@@ -152,9 +152,9 @@ function addItemToSection(itemsListContainer, model) {
   }
 
   // add event listeners
-  checkboxEl.addEventListener("change", updateProgressOfSectionOnToggleCheck);
-  checkboxEl.addEventListener("change", saveStateToLocalStorageFromView);
-  inputEl.addEventListener("input", saveStateToLocalStorageFromView);
+  checkboxEl.addEventListener('change', updateProgressOfSectionOnToggleCheck);
+  checkboxEl.addEventListener('change', saveStateToLocalStorageFromView);
+  inputEl.addEventListener('input', saveStateToLocalStorageFromView);
 
   itemsListContainer.append(newItemTemplateClone);
 
@@ -187,9 +187,9 @@ function addItemToSection(itemsListContainer, model) {
 
 //#region bottom controls listeners
 
-ELEMENTS.CLEAN_CHECKS_BUTTON.addEventListener("click", showConfirmationCleanCheckboxes);
+ELEMENTS.CLEAN_CHECKS_BUTTON.addEventListener('click', showConfirmationCleanCheckboxes);
 function showConfirmationCleanCheckboxes() {
-  ELEMENTS.OVERLAY_CLEAN_CHECKS.style.display = "block";
+  ELEMENTS.OVERLAY_CLEAN_CHECKS.style.display = 'block';
   // align confirm button to appear above this button
   const position = this.getBoundingClientRect();
 
@@ -201,11 +201,11 @@ function showConfirmationCleanCheckboxes() {
   }px`;
 }
 
-ELEMENTS.OVERLAY_CLEAN_CHECKS.addEventListener("click", function () {
-  this.style.display = "none";
+ELEMENTS.OVERLAY_CLEAN_CHECKS.addEventListener('click', function () {
+  this.style.display = 'none';
 });
 
-ELEMENTS.CONFIRM_CLEAN_CHECKS_BUTTON.addEventListener("click", cleanCheckboxes);
+ELEMENTS.CONFIRM_CLEAN_CHECKS_BUTTON.addEventListener('click', cleanCheckboxes);
 function cleanCheckboxes() {
   // uncheck items
   document
@@ -215,33 +215,33 @@ function cleanCheckboxes() {
   // reset progress of each section
   document
     .querySelectorAll(SELECTORS.SECTION_COMPLETED_ITEMS_NUMBER)
-    .forEach((el) => (el.textContent = "0"));
+    .forEach((el) => (el.textContent = '0'));
 
   saveStateToLocalStorageFromView();
 }
 
-ELEMENTS.TOGGLE_ALL_SECTIONS_BUTTON.addEventListener("click", function () {
-  const svg = this.querySelector("svg");
-  if (svg.style.transform === "") {
-    svg.style.transform = "rotate(180deg)";
+ELEMENTS.TOGGLE_ALL_SECTIONS_BUTTON.addEventListener('click', function () {
+  const svg = this.querySelector('svg');
+  if (svg.style.transform === '') {
+    svg.style.transform = 'rotate(180deg)';
     document.querySelectorAll(SELECTORS.SECTION_COLLAPSIBLE_ARROW).forEach((arrowEl) => {
-      if (arrowEl.style.transform === "") {
+      if (arrowEl.style.transform === '') {
         // collapse expanded sections
-        arrowEl.dispatchEvent(new Event("click"));
+        arrowEl.dispatchEvent(new Event('click'));
       }
     });
   } else {
-    svg.style.transform = "";
+    svg.style.transform = '';
     document.querySelectorAll(SELECTORS.SECTION_COLLAPSIBLE_ARROW).forEach((arrowEl) => {
-      if (arrowEl.style.transform === "rotate(0deg)") {
+      if (arrowEl.style.transform === 'rotate(0deg)') {
         // expand collapsed sections
-        arrowEl.dispatchEvent(new Event("click"));
+        arrowEl.dispatchEvent(new Event('click'));
       }
     });
   }
 });
 
-ELEMENTS.NEW_SECTION_BUTTON.addEventListener("click", () => addSectionToView());
+ELEMENTS.NEW_SECTION_BUTTON.addEventListener('click', () => addSectionToView());
 
 //#endregion bottom controls listeners
 
@@ -249,23 +249,23 @@ ELEMENTS.NEW_SECTION_BUTTON.addEventListener("click", () => addSectionToView());
 
 const MIN_THRESHOLD_SCROLLING = 15;
 const THRESHOLD_TO_DELETE = screen.width / 2;
-const BACKGROUND_COLOR = "#ff5c5c"; // backgroundColor like in css and html
-const BACKGROUND_COLOR_DELETE = "#c20000";
+const BACKGROUND_COLOR = '#ff5c5c'; // backgroundColor like in css and html
+const BACKGROUND_COLOR_DELETE = '#c20000';
 let elementToScrollOnDelete = null;
 let initialXCoord = 0;
 
-document.body.addEventListener("pointerdown", (event) => {
+document.body.addEventListener('pointerdown', (event) => {
   elementToScrollOnDelete =
     event.target.closest(SELECTORS.ITEM_FOREGROUND) ??
     event.target.closest(SELECTORS.SECTION_FOREGROUND);
   if (elementToScrollOnDelete !== null) {
     initialXCoord = event.clientX;
     // delete transition to apply transform with same speed than pointer move
-    elementToScrollOnDelete.style.transition = "";
+    elementToScrollOnDelete.style.transition = '';
   }
 });
 
-document.body.addEventListener("pointermove", (event) => {
+document.body.addEventListener('pointermove', (event) => {
   const distance = event.clientX - initialXCoord;
   if (elementToScrollOnDelete === null || Math.abs(distance) <= MIN_THRESHOLD_SCROLLING) {
     return;
@@ -292,18 +292,18 @@ document.body.addEventListener("pointermove", (event) => {
   backgroundEl.style.backgroundColor = color;
   document
     .querySelectorAll(`${SELECTORS.TRASH_CAN_ICON} [fill^="#"]`)
-    .forEach((el) => el.setAttribute("fill", color));
+    .forEach((el) => el.setAttribute('fill', color));
   document
     .querySelectorAll(`${SELECTORS.TRASH_CAN_ICON} [stroke^="#"]`)
-    .forEach((el) => el.setAttribute("stroke", color));
+    .forEach((el) => el.setAttribute('stroke', color));
 });
 
-document.body.addEventListener("pointerup", (event) => {
+document.body.addEventListener('pointerup', (event) => {
   const distance = event.clientX - initialXCoord;
 
   if (elementToScrollOnDelete === null) return;
 
-  elementToScrollOnDelete.style.transition = "transform 0.3s";
+  elementToScrollOnDelete.style.transition = 'transform 0.3s';
 
   if (Math.abs(distance) < THRESHOLD_TO_DELETE) {
     elementToScrollOnDelete.style.transform = `translateX(0)`;
@@ -339,7 +339,7 @@ document.body.addEventListener("pointerup", (event) => {
   ) {
     // animate the deletion of the section
     sectionParent.style.height = `${sectionParent.scrollHeight}px`;
-    setTimeout(() => (sectionParent.style.height = "0px"));
+    setTimeout(() => (sectionParent.style.height = '0px'));
     setTimeout(() => {
       sectionParent.remove();
       saveStateToLocalStorageFromView();

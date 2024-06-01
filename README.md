@@ -2,9 +2,11 @@
 
 Application to make a check list when you have to travel. Do not forget anything at home.
 
-Optimized for mobile viewports. This projects uses HTML, CSS and JavaScript technologies and [Parcel](https://parceljs.org/) tooling.
+Optimized for mobile viewports. Deployed to <https://jaimeelingeniero.es/lista-de-viaje/index.html>
 
 [![Build And Deploy](https://github.com/jaimemartinmartin15/ListaDeViaje/actions/workflows/build-and-publish.yml/badge.svg)](https://github.com/jaimemartinmartin15/ListaDeViaje/actions/workflows/build-and-publish.yml)
+
+This projects uses HTML, CSS and JavaScript technologies and [Parcel](https://parceljs.org/) tooling.
 
 ## Development
 
@@ -34,7 +36,9 @@ To build the project run:
 npm run build
 ```
 
-Minified files are generated to deploy to the server.
+Minified and optimized files are generated in `dist` folder by Parcel to deploy to the server.
+
+To complete the build before deploying to the server, [fix-og-images.js](./scripts/fix-og-images.js) needs to run to fix `og:image` and `twitter:image` tags. The configured workflow does it automatically.
 
 ## Deploy
 

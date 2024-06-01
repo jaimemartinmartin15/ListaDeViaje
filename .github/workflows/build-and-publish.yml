@@ -23,6 +23,8 @@ jobs:
         run: npm ci --no-audit --no-fund
       - name: Build
         run: npm run build
+      - name: Fix og:image
+        run: node ./scripts/fix-og-images.js
       - name: Set AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
