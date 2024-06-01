@@ -1,4 +1,6 @@
 /**
+ * https://github.com/parcel-bundler/parcel/discussions/5271
+ *
  * This script is created to adapt the meta tags with "og:image" and "twitter:image" names.
  * These tags need to have absolute url (included origin) to work.
  * Because of this, Parcel is not able to replace the favicon names with the generated hashed ones.
