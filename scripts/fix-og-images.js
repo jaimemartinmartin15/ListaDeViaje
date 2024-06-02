@@ -24,7 +24,7 @@ if (!newNameFavIcon192) {
 }
 
 console.log(); // print empty line
-console.log(`${ORIGINAL_FAV_ICON_NAME} was renamed to `, newNameFavIcon192);
+console.log(`${ORIGINAL_FAV_ICON_NAME} was renamed to ${newNameFavIcon192}`);
 
 // read produced index.html by Parcel
 let htmlFile = fs.readFileSync(DIST_INDEX_HTML_PATH, 'utf8');
