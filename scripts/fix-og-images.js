@@ -12,11 +12,11 @@ const fs = require('fs');
 
 const DIST_FOLDER = './dist';
 const DIST_INDEX_HTML_PATH = `${DIST_FOLDER}/index.html`;
-const ORIGINAL_FAV_ICON_NAME = 'favicons/favicon-192x192.png';
+const ORIGINAL_FAV_ICON_NAME = 'favicons/favicon-maskable-192x192.png';
 
 // find the new favicon name for favicon-192x192.png
 const distFiles = fs.readdirSync(DIST_FOLDER);
-const newNameFavIcon192 = distFiles.find((f) => f.match(/favicon\-192x192\..*\.png/));
+const newNameFavIcon192 = distFiles.find((f) => f.match(/favicon\-maskable\-192x192\..*\.png/));
 
 if (!newNameFavIcon192) {
   console.error(`New file name for ${ORIGINAL_FAV_ICON_NAME} was not found.`);

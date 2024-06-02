@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.0.2
+
+Updated favicons.
+
 ## 1.0.1
 
 Fix og:image tags after build by Parcel.
