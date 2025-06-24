@@ -8,6 +8,8 @@ Optimized for mobile viewports. Deployed to <https://jaimeelingeniero.es/lista-d
 
 This projects uses HTML, CSS and JavaScript technologies and [Parcel](https://parceljs.org/) tooling.
 
+> This repo is no longer maintaned. New app is under [listas.jaimeelingeniero.es](https://github.com/jaimemartinmartin15/listas.jaimeelingeniero.es)
+
 ## Development
 
 Clone the repository:

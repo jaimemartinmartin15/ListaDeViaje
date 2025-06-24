@@ -12,7 +12,6 @@
   <meta name="author" content="Jaime Martín Martín">
   <meta name="theme-color" content="#d3ffd3">
 
-  <link rel="stylesheet" href="styles.css">
   <script type="module" src="controller.js"></script>
 
   <!-- favicons -->
@@ -41,147 +40,22 @@
     content="Haz una lista con las cosas que tienes que llevar para tu próximo viaje y no olvidar nada en casa.">
   <!-- * if this path is updated, check fix-og-images.js script -->
   <meta name="twitter:image" content="https://jaimeelingeniero.es/lista-de-viaje/favicons/favicon-maskable-192x192.png">
+
+  <style>
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-wrap: balance;
+      text-align: center;
+    }
+  </style>
 </head>
 
 <body>
-  <h1 id="list-name">Lista de viaje</h1>
-
-  <ul id="sections-list">
-    <template id="section-template">
-      <li class="section">
-        <div class="background">
-          <svg viewBox="0 0 100 100" width="30" height="30" stroke="white" fill="white" stroke-width="1"
-            class="trash-can">
-            <!-- lid -->
-            <rect x="35" y="5" rx="5" ry="5" width="30" height="13" fill="inherit"></rect>
-            <rect x="39" y="9" rx="5" ry="5" width="22" height="5" fill="#ff5c5c"></rect>
-            <line x1="5" y1="17.5" x2="95" y2="17.5" stroke-width="4" stroke="inherit" stroke-linecap="round" />
-
-            <!-- body -->
-            <rect x="20" y="18" rx="5" ry="5" width="60" height="70" fill="inherit"></rect>
-            <line x1="32.5" y1="30" x2="32.5" y2="80" stroke-width="6" stroke="#ff5c5c" stroke-linecap="round" />
-            <line x1="50" y1="30" x2="50" y2="80" stroke-width="6" stroke="#ff5c5c" stroke-linecap="round" />
-            <line x1="67.5" y1="30" x2="67.5" y2="80" stroke-width="6" stroke="#ff5c5c" stroke-linecap="round" />
-          </svg>
-
-          <svg viewBox="0 0 100 100" width="30" height="30" stroke="white" fill="white" stroke-width="1"
-            class="trash-can">
-            <!-- lid -->
-            <rect x="35" y="5" rx="5" ry="5" width="30" height="13" fill="inherit"></rect>
-            <rect x="39" y="9" rx="5" ry="5" width="22" height="5" fill="#ff5c5c"></rect>
-            <line x1="5" y1="17.5" x2="95" y2="17.5" stroke-width="4" stroke="inherit" stroke-linecap="round" />
-
-            <!-- body -->
-            <rect x="20" y="18" rx="5" ry="5" width="60" height="70" fill="inherit"></rect>
-            <line x1="32.5" y1="30" x2="32.5" y2="80" stroke-width="6" stroke="#ff5c5c" stroke-linecap="round" />
-            <line x1="50" y1="30" x2="50" y2="80" stroke-width="6" stroke="#ff5c5c" stroke-linecap="round" />
-            <line x1="67.5" y1="30" x2="67.5" y2="80" stroke-width="6" stroke="#ff5c5c" stroke-linecap="round" />
-          </svg>
-        </div>
-
-        <section class="foreground">
-          <h2 class="section__header">
-            <input type="text" placeholder="Nombre de la sección" class="section__header__name">
-
-            <span class="section__header__progress">
-              <span class="section__header__progress__completed-items">0</span>/<span
-                class="section__header__progress__total-items">0</span>
-            </span>
-
-            <svg class="section__header__arrow" width="15" viewBox="-10 -10 350 350">
-              <path stroke-width="20" stroke="black"
-                d="M326 79c-6-5-16-5-22 0L165 219 26 79a15 15 0 0 0-22 22l150 150a15 15 0 0 0 22 0l150-150c5-6 5-16 0-22z" />
-            </svg>
-          </h2>
-
-          <div class="section__collapsible">
-            <ul class="items-container"></ul>
-
-            <button class="add-item">Añadir ítem</button>
-          </div>
-        </section>
-      </li>
-    </template>
-
-    <template id="item-template">
-      <li class="item">
-        <div class="background">
-          <svg viewBox="0 0 100 100" width="25" height="25" stroke="white" fill="white" stroke-width="1"
-            class="trash-can">
-            <!-- lid -->
-            <rect x="35" y="5" rx="5" ry="5" width="30" height="13" fill="inherit"></rect>
-            <rect x="39" y="9" rx="5" ry="5" width="22" height="5" fill="#ff5c5c"></rect>
-            <line x1="5" y1="17.5" x2="95" y2="17.5" stroke-width="4" stroke="inherit" stroke-linecap="round" />
-
-            <!-- body -->
-            <rect x="20" y="18" rx="5" ry="5" width="60" height="70" fill="inherit"></rect>
-            <line x1="32.5" y1="30" x2="32.5" y2="80" stroke-width="6" stroke="#ff5c5c" stroke-linecap="round" />
-            <line x1="50" y1="30" x2="50" y2="80" stroke-width="6" stroke="#ff5c5c" stroke-linecap="round" />
-            <line x1="67.5" y1="30" x2="67.5" y2="80" stroke-width="6" stroke="#ff5c5c" stroke-linecap="round" />
-          </svg>
-
-          <svg viewBox="0 0 100 100" width="25" height="25" stroke="white" fill="white" stroke-width="1"
-            class="trash-can">
-            <!-- lid -->
-            <rect x="35" y="5" rx="5" ry="5" width="30" height="13" fill="inherit"></rect>
-            <rect x="39" y="9" rx="5" ry="5" width="22" height="5" fill="#ff5c5c"></rect>
-            <line x1="5" y1="17.5" x2="95" y2="17.5" stroke-width="4" stroke="inherit" stroke-linecap="round" />
-
-            <!-- body -->
-            <rect x="20" y="18" rx="5" ry="5" width="60" height="70" fill="inherit"></rect>
-            <line x1="32.5" y1="30" x2="32.5" y2="80" stroke-width="6" stroke="#ff5c5c" stroke-linecap="round" />
-            <line x1="50" y1="30" x2="50" y2="80" stroke-width="6" stroke="#ff5c5c" stroke-linecap="round" />
-            <line x1="67.5" y1="30" x2="67.5" y2="80" stroke-width="6" stroke="#ff5c5c" stroke-linecap="round" />
-          </svg>
-        </div>
-
-        <div class="foreground">
-          <label class="item__checkbox-wrapper">
-            <input type="checkbox" class="item__checkbox">
-
-            <svg viewBox="0 0 33 33">
-              <path d="M6,16L13,23L27,10"></path>
-            </svg>
-          </label>
-
-          <input type="text" placeholder="Nuevo ítem" class="item__name">
-        </div>
-      </li>
-    </template>
-  </ul>
-
-  <div id="bottom-controls">
-    <button id="clean-checks">
-      <!-- icon: checklist with no checked items -->
-      <svg viewBox="0 0 100 100" width="30" height="30">
-        <rect x="10" y="10" rx="5" ry="5" width="23" height="23" fill="none" stroke="black" stroke-width="3" />
-        <rect x="10" y="40" rx="5" ry="5" width="23" height="23" fill="none" stroke="black" stroke-width="3" />
-        <rect x="10" y="70" rx="5" ry="5" width="23" height="23" fill="none" stroke="black" stroke-width="3" />
-        <line x1="53" y1="22" x2="90" y2="22" stroke-width="4" stroke="black" stroke-linecap="round" />
-        <line x1="53" y1="52" x2="90" y2="52" stroke-width="4" stroke="black" stroke-linecap="round" />
-        <line x1="53" y1="82" x2="90" y2="82" stroke-width="4" stroke="black" stroke-linecap="round" />
-      </svg>
-    </button>
-
-    <div id="overlay-clean-checks">
-      <button id="confirm-clean-checks">¡limpiar marcas!</button>
-    </div>
-
-    <button id="collapse-all-sections">
-      <!-- icon: chevron that represents collapsing sections -->
-      <svg viewBox="0 0 100 100" width="30" height="30">
-        <line x1="10" y1="73" x2="50" y2="33" stroke-width="4" stroke="black" stroke-linecap="round" />
-        <line x1="50" y1="33" x2="90" y2="73" stroke-width="4" stroke="black" stroke-linecap="round" />
-      </svg>
-    </button>
-
-    <button id="new-section">
-      <!-- icon: sum icon -->
-      <svg viewBox="0 0 100 100" width="30" height="30">
-        <line x1="50" y1="10" x2="50" y2="90" stroke-width="4" stroke="black" stroke-linecap="round" />
-        <line x1="10" y1="50" x2="90" y2="50" stroke-width="4" stroke="black" stroke-linecap="round" />
-      </svg>
-    </button>
+  <div>
+    Esta página se ha movido a <a href="https://listas.jaimeelingeniero.es">https://listas.jaimeelingeniero.es</a>
   </div>
 </body>
 

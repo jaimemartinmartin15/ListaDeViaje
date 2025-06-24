@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.0.3
+
+Deprecate this app. New one is under [listas.jaimeelingeniero.es](https://github.com/jaimemartinmartin15/listas.jaimeelingeniero.es)
+
 ## 1.0.2
 
 Updated favicons.
